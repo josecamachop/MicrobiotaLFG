@@ -1,0 +1,753 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025.</title>
+<meta name="generator" content="MATLAB 24.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2025-05-15">
+<meta name="DC.source" content="vasca_biomarkers.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025.</h1>
+<!--introduction-->
+<p>Script to analyze the inflammatory biomarkers</p>
+<p>We consider the following model:</p>
+<pre class="language-matlab">X = A + B + C(A) + AB + E
+</pre>
+<p>with A: Class (Control vs IUGR), B: Time (T3, Labour), C(A): Individual</p>
+<p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 15/May/2025</p>
+<p>Copyright (C) 2025 University of Granada, Granada</p>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Prepare data</a>
+</li>
+<li>
+<a href="#2">FDR (Q-value)</a>
+</li>
+<li>
+<a href="#3">Compare with after rank tranform (if similar, raw data preferred)</a>
+</li>
+<li>
+<a href="#4">Univariate inference: Q-value with selected features</a>
+</li>
+<li>
+<a href="#5">Multivariate inference: ASCA</a>
+</li>
+<li>
+<a href="#6">Multivariate inference with variable selection: VASCA</a>
+</li>
+<li>
+<a href="#7">Display results: VASCA</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Prepare data</h2>
+<pre class="codeinput">clear
+close <span class="string">all</span>
+clc
+
+<span class="comment">% comment the line below to observe full randomness</span>
+rng(0); <span class="comment">% we fix the random seed for repetitivity, but permutation testing is stochastic so a little variability is expected in the p-values and associated figures</span>
+
+pvalue = 0.05
+
+load <span class="string">biomark_vasca.mat</span>
+
+X = X_ASCAt;
+Xraw = X;
+F = F_ASCA;
+var_l = var_final;
+
+ind = find(F(:,2)==3);<span class="comment">% do not consider newborns</span>
+X(ind,:) = [];
+Xraw(ind,:) = [];
+F(ind,:) = [];
+
+Xr =  rankTransform(X);
+Xn = X; Xn(find(isnan(X)))=0;
+Xrn = X; Xrn(find(isnan(X)))=0;
+X = [X Xr]; <span class="comment">% Careful: use [X/norm(Xn) Xr/norm(Xrn)] if not autoscaled</span>
+
+<span class="keyword">for</span> i=1:length(var_final), var_l{end+1} = strcat(var_l{i},<span class="string">'_rank'</span>); <span class="keyword">end</span>
+
+clear <span class="string">X_ASCAt</span> <span class="string">F_ASCA</span> <span class="string">var_final</span> <span class="string">Xr</span> <span class="string">Xn</span> <span class="string">Xrn</span>
+</pre>
+<pre class="codeoutput">
+pvalue =
+
+    0.0500
+
+</pre>
+<h2 id="2">FDR (Q-value)</h2>
+<pre class="codeinput">[T, parglmoMC] = parglmMC(X, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Mtc'</span>, -1, <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
+T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int Class x Time'</span>}
+</pre>
+<pre class="codeoutput">
+T =
+
+  7&times;7 table
+
+           Source           SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue 
+    ____________________    ______    ___________    ___    ______    ______    __________
+
+    {'Mean'            }     15215       73.014        1     15215       NaN           NaN
+    {'F1: LFR/Ctrl'    }    131.82      0.84592        1    131.82    14.162      0.043332
+    {'F2: Time'        }    59.781      0.42197        1    59.781     32.55    0.00049998
+    {'F3: Individual'  }    2727.3       24.482       85    32.086    74.748    5.8821e-05
+    {'Int Class x Time'}    9.1209     0.088764        1    9.1209    3.0729       0.87009
+    {'Residuals'       }    787.19       6.3543       85    9.2611       NaN           NaN
+    {'Total'           }     18067          100      174    103.83       NaN           NaN
+
+</pre>
+<h2 id="3">Compare with after rank tranform (if similar, raw data preferred)</h2>
+<pre class="codeinput">half = length(var_l)/2;
+noTr = 1:half;
+Tr = half+1:2*half;
+
+diff1 = find( (parglmoMC.p(noTr,1)&lt;pvalue | parglmoMC.p(Tr,1)&lt;pvalue) &amp; abs(parglmoMC.p(noTr,1)-parglmoMC.p(Tr,1)) &gt; pvalue);
+<span class="keyword">if</span> length(diff1)&gt;0, disp(<span class="string">'Check the following variables in Factor 1:'</span>), <span class="keyword">end</span>
+disp(var_l(diff1))
+
+diff2 = find( (parglmoMC.p(noTr,2)&lt;pvalue | parglmoMC.p(Tr,2)&lt;pvalue) &amp; abs(parglmoMC.p(noTr,2)-parglmoMC.p(Tr,2)) &gt; pvalue);
+<span class="keyword">if</span> length(diff2)&gt;0, disp(<span class="string">'Check the following variables in Factor 2:'</span>), <span class="keyword">end</span>
+disp(var_l(diff2))
+
+diff4 = find( (parglmoMC.p(noTr,4)&lt;pvalue | parglmoMC.p(Tr,4)&lt;pvalue) &amp; abs(parglmoMC.p(noTr,4)-parglmoMC.p(Tr,4)) &gt; pvalue);
+<span class="keyword">if</span> length(diff4)&gt;0, disp(<span class="string">'Check the following variables in the Interaction:'</span>), <span class="keyword">end</span>;
+disp(var_l(diff4))
+
+X2 = X(:,noTr);
+var_l2 = var_l(noTr);
+
+<span class="keyword">if</span> length(diff1)==0 &amp;&amp; length(diff2)==0 &amp;&amp; length(diff4)==0
+    disp(<span class="string">'Rank transformation does not make a difference, so we are safe to use the original data.'</span>);
+<span class="keyword">else</span>
+    disp(<span class="string">'We use the rank tranformation for the Q-value of non-normal variables.'</span>);
+    parglmoMC.p(unique([diff1;diff2;diff4]),:) = parglmoMC.p(unique([diff1;diff2;diff4])+half,:);
+    X2(:,unique([diff1;diff2;diff4])) = X(:,unique([diff1;diff2;diff4])+half);
+    var_l2(unique([diff1;diff2;diff4])) = var_l(unique([diff1;diff2;diff4])+half);
+<span class="keyword">end</span>
+</pre>
+<pre class="codeoutput">Check the following variables in Factor 1:
+    {'Adiponectin'}
+
+Check the following variables in Factor 2:
+    {'IL-6'}    {'Adipo/Resis'}
+
+We use the rank tranformation for the Q-value of non-normal variables.
+</pre>
+<h2 id="4">Univariate inference: Q-value with selected features</h2>
+<pre class="codeinput">[T, parglmoMC] = parglmMC(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Mtc'</span>, -1, <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
+T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+
+
+TQ = table(var_l2', parglmoMC.p(:,1), parglmoMC.p(:,2), parglmoMC.p(:,4),<span class="string">'VariableNames'</span>, {<span class="string">'Labels'</span>,<span class="string">'QvalueLFRCtrl'</span>,<span class="string">'QvalueTime'</span>,<span class="string">'QvalueInt'</span>})
+
+
+h=figure; hold <span class="string">on</span>
+<span class="keyword">for</span> factor=1:3
+    plot(-log10(parglmoMC.p(parglmoMC.ordFactors(factor,:),factor)))
+<span class="keyword">end</span>
+plot(-log10(parglmoMC.p(parglmoMC.ordInteractions(1,:),4)))
+plot([1 size(X2,2)],-log10([pvalue pvalue]),<span class="string">'r--'</span>)
+legend(<span class="string">'Factor LFR/Ctrl'</span>,<span class="string">'Factor Time'</span>,<span class="string">'Factor Individual'</span>,<span class="string">'LFR/Ctrl x Time'</span>,<span class="string">'\alpha=0.05'</span>,<span class="string">'Location'</span>,<span class="string">'south'</span>)
+a=get(h,<span class="string">'CurrentAxes'</span>);
+set(a,<span class="string">'FontSize'</span>,14)
+set(a,<span class="string">'YScale'</span>,<span class="string">'log'</span>)
+ylabel(<span class="string">'-log_{10}(p-value)'</span>,<span class="string">'FontSize'</span>,18)
+xlabel(<span class="string">'Variables in selected order'</span>,<span class="string">'FontSize'</span>,18)
+title(<span class="string">'Manhattan Plot Qvalue'</span>)
+axis <span class="string">tight</span>
+</pre>
+<pre class="codeoutput">
+T =
+
+  7&times;7 table
+
+            Source             SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue 
+    _______________________    ______    ___________    ___    ______    ______    __________
+
+    {'Mean'               }    8322.6       65.568        1    8322.6       NaN           NaN
+    {'F1: LFR/Ctrl'       }    60.903      0.85273        1    60.903    12.307      0.040497
+    {'F2: Time'           }    30.035      0.44915        1    30.035     21.46    0.00099993
+    {'F3: Individual'     }    1381.1       30.836       85    16.248    74.748    0.00012499
+    {'Int LFR/Ctrl x Time'}      4.07      0.11655        1      4.07    3.0729       0.82802
+    {'Residuals'          }    380.05       6.7718       85    4.4712       NaN           NaN
+    {'Total'              }    9813.7          100      174      56.4       NaN           NaN
+
+
+TQ =
+
+  14&times;4 table
+
+           Labels           QvalueLFRCtrl    QvalueTime    QvalueInt
+    ____________________    _____________    __________    _________
+
+    {'RARRESS'         }       0.57167          0.43522     0.90309 
+    {'LBP'             }      0.040497          0.32583     0.82802 
+    {'IFN-G'           }      0.090327          0.58596     0.82802 
+    {'IL-10'           }       0.12939       0.00099993     0.82802 
+    {'IL-23'           }       0.68322          0.90636     0.82802 
+    {'IL-6_rank'       }       0.68322        0.0054996     0.82802 
+    {'IL-8'            }       0.69253          0.58596     0.82802 
+    {'Adiponectin_rank'}       0.12939          0.25798     0.82802 
+    {'Resistin'        }      0.040497         0.027248     0.82802 
+    {'IL-15'           }       0.88779          0.58596     0.97564 
+    {'VEGF'            }       0.85148          0.58596     0.82802 
+    {'Leptin'          }       0.57167          0.25798     0.82802 
+    {'Adipo/Lep'       }       0.68322          0.46119     0.82802 
+    {'Adipo/Resis_rank'}       0.68322        0.0069995     0.82802 
+
+</pre>
+<img vspace="5" hspace="5" src="vasca_biomarkers_01.png" alt=""> <h2 id="5">Multivariate inference: ASCA</h2>
+<pre class="codeinput">[T, parglmo] = parglm(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
+T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+</pre>
+<pre class="codeoutput">
+T =
+
+  7&times;7 table
+
+            Source             SumSq     PercSumSq    df     MeanSq       F        Pvalue 
+    _______________________    ______    _________    ___    ______    _______    ________
+
+    {'Mean'               }    8322.6      84.806       1    8322.6        NaN         NaN
+    {'F1: LFR/Ctrl'       }    60.903      0.6206       1    60.903     3.7484    0.015984
+    {'F2: Time'           }    30.035     0.30605       1    30.035     6.7175    0.000999
+    {'F3: Individual'     }    1381.1      14.073      85    16.248     3.6339    0.000999
+    {'Int LFR/Ctrl x Time'}      4.07    0.041473       1      4.07    0.91027     0.82617
+    {'Residuals'          }    380.05      3.8727      85    4.4712        NaN         NaN
+    {'Total'              }    9813.7         100     174      56.4        NaN         NaN
+
+</pre>
+<h2 id="6">Multivariate inference with variable selection: VASCA</h2>
+<pre class="codeinput">[T, parglmoVS] = parglmVS(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
+T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+
+TtQ = table(var_l2', parglmoVS.p(:,1), parglmoVS.p(:,2), parglmoVS.p(:,4),<span class="string">'VariableNames'</span>, {<span class="string">'Labels'</span>,<span class="string">'VASCALFRCtrl'</span>,<span class="string">'VASCATime'</span>,<span class="string">'VASCAInt'</span>})
+
+h=figure; hold <span class="string">on</span>
+<span class="keyword">for</span> factor=1:3
+    plot(-log10(parglmoVS.p(parglmoVS.ordFactors(factor,:),factor)))
+<span class="keyword">end</span>
+plot(-log10(parglmoVS.p(parglmoVS.ordInteractions(1,:),4)))
+plot([1 size(X2,2)],-log10([pvalue pvalue]),<span class="string">'r--'</span>)
+legend(<span class="string">'Factor LFR/Ctrl'</span>,<span class="string">'Factor Time'</span>,<span class="string">'Factor Individual'</span>,<span class="string">'LFR/Ctrl x Time'</span>,<span class="string">'\alpha=0.05'</span>,<span class="string">'Location'</span>,<span class="string">'south'</span>)
+a=get(h,<span class="string">'CurrentAxes'</span>);
+set(a,<span class="string">'FontSize'</span>,14)
+set(a,<span class="string">'YScale'</span>,<span class="string">'log'</span>)
+ylabel(<span class="string">'-log_{10}(p-value)'</span>,<span class="string">'FontSize'</span>,18)
+xlabel(<span class="string">'Variables in selected order'</span>,<span class="string">'FontSize'</span>,18)
+title(<span class="string">'Manhattan Plot vASCA'</span>)
+axis <span class="string">tight</span>
+</pre>
+<pre class="codeoutput">
+T =
+
+  7&times;7 table
+
+            Source             SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue
+    _______________________    ______    ___________    ___    ______    ______    _________
+
+    {'Mean'               }    8322.6       65.568        1    8322.6       NaN         NaN 
+    {'F1: LFR/Ctrl'       }    60.903      0.85273        1    60.903    12.307    0.023976 
+    {'F2: Time'           }    30.035      0.44915        1    30.035     21.46    0.000999 
+    {'F3: Individual'     }    1381.1       30.836       85    16.248    74.748    0.000999 
+    {'Int LFR/Ctrl x Time'}      4.07      0.11655        1      4.07    3.0729     0.82517 
+    {'Residuals'          }    380.05       6.7718       85    4.4712       NaN         NaN 
+    {'Total'              }    9813.7          100      174      56.4       NaN         NaN 
+
+
+TtQ =
+
+  14&times;4 table
+
+           Labels           VASCALFRCtrl    VASCATime    VASCAInt
+    ____________________    ____________    _________    ________
+
+    {'RARRESS'         }      0.024975      0.002997     0.85714 
+    {'LBP'             }       0.10989      0.001998     0.85714 
+    {'IFN-G'           }      0.033966      0.000999     0.83816 
+    {'IL-10'           }      0.023976      0.007992     0.83816 
+    {'IL-23'           }       0.02997      0.000999     0.84216 
+    {'IL-6_rank'       }      0.025974      0.000999     0.85115 
+    {'IL-8'            }      0.025974      0.000999     0.87612 
+    {'Adiponectin_rank'}      0.030969      0.000999     0.83616 
+    {'Resistin'        }      0.047952      0.000999     0.85714 
+    {'IL-15'           }      0.026973      0.000999     0.82517 
+    {'VEGF'            }      0.025974      0.000999     0.83616 
+    {'Leptin'          }       0.02997      0.000999     0.85015 
+    {'Adipo/Lep'       }      0.027972      0.002997     0.83616 
+    {'Adipo/Resis_rank'}      0.026973      0.000999     0.84715 
+
+</pre>
+<img vspace="5" hspace="5" src="vasca_biomarkers_02.png" alt=""> <h2 id="7">Display results: VASCA</h2>
+<pre class="codeinput">vascao = vasca(parglmoVS, pvalue);
+
+
+<span class="comment">% LFR/Ctrl factor</span>
+
+i=1;
+<span class="keyword">if</span> isfield(vascao.factors{i},<span class="string">'scores'</span>)
+
+    TvASCA = table((1:length(vascao.factors{i}.ind))',var_l2(sort(vascao.factors{i}.ind))', vascao.p(sort(vascao.factors{i}.ind),i),<span class="string">'VariableNames'</span>, {<span class="string">'Order'</span>,<span class="string">'Label'</span>,sprintf(<span class="string">'PvalueF%i'</span>,i)})
+
+    scores(vascao.factors{i}, <span class="string">'Title'</span>, <span class="string">'Case/control'</span>, <span class="string">'ObsClass'</span>, vascao.design(:,i));
+    legend(<span class="string">'Control'</span>, <span class="string">'LFG'</span>);
+
+    <span class="keyword">if</span> length(vascao.factors{i}.ind)==1
+        ylabel(var_l2(vascao.factors{i}.ind))
+    <span class="keyword">else</span>
+        loadings(vascao.factors{i}, <span class="string">'Title'</span>,<span class="string">'Case/control'</span>,<span class="string">'VarsLabel'</span>, var_l2(sort(vascao.factors{i}.ind)));
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+
+
+<span class="comment">% Time Factor</span>
+
+i=2;
+<span class="keyword">if</span> isfield(vascao.factors{i},<span class="string">'scores'</span>)
+
+    TvASCA = table((1:length(vascao.factors{i}.ind))',var_l2(sort(vascao.factors{i}.ind))', vascao.p(sort(vascao.factors{i}.ind),i),<span class="string">'VariableNames'</span>, {<span class="string">'Order'</span>,<span class="string">'Label'</span>,sprintf(<span class="string">'PvalueF%i'</span>,i)})
+
+    vascao.factors{i}.loads = -vascao.factors{i}.loads;
+    vascao.factors{i}.scoresV = -vascao.factors{i}.scoresV;
+
+    scores(vascao.factors{i}, <span class="string">'Title'</span>, <span class="string">'Time'</span>, <span class="string">'ObsClass'</span>,vascao.design(:,i));
+    legend(<span class="string">'T3'</span>, <span class="string">'Labour'</span>);
+
+    <span class="keyword">if</span> length(vascao.factors{i}.ind)==1
+        ylabel(var_l2(vascao.factors{i}.ind))
+    <span class="keyword">else</span>
+        loadings(vascao.factors{i}, <span class="string">'Title'</span>,<span class="string">'Time'</span>, <span class="string">'VarsLabel'</span>, var_l2(sort(vascao.factors{i}.ind)));
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+
+
+<span class="comment">% Factor Individual</span>
+
+i=3;
+<span class="keyword">if</span> isfield(vascao.factors{i},<span class="string">'scores'</span>)
+
+    TvASCA = table((1:length(vascao.factors{i}.ind))',var_l2(sort(vascao.factors{i}.ind))', vascao.p(sort(vascao.factors{i}.ind),i),<span class="string">'VariableNames'</span>, {<span class="string">'Order'</span>,<span class="string">'Label'</span>,sprintf(<span class="string">'PvalueF%i'</span>,i)})
+
+    <span class="keyword">if</span> vascao.factors{i}.stasig
+        varPca(vascao.factors{i}.matrix);
+        mspcPca(vascao.factors{i}.matrix, <span class="string">'PCs'</span>, 1:2, <span class="string">'ObsTest'</span>, vascao.factors{i}.matrix+vascao.residuals, <span class="string">'PlotCal'</span>, false, <span class="string">'ObsLabel'</span>, vascao.design(:,3), <span class="string">'ObsClass'</span>, vascao.design(:,1), <span class="string">'LimType'</span>, 1);
+        title(sprintf(<span class="string">'Factor %d'</span>,i));
+        legend(<span class="string">'Control'</span>, <span class="string">'LFG'</span>);
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+<span class="comment">% 'Case/control' x 'Time'</span>
+
+i=1;
+<span class="keyword">if</span> isfield(vascao.interactions{i},<span class="string">'scores'</span>)
+
+    TvASCA = table((1:length(vascao.interactions{i}.ind))',var_l2(sort(vascao.interactions{i}.ind))', vascao.p(sort(vascao.interactions{i}.ind),3+i),<span class="string">'VariableNames'</span>, {<span class="string">'Order'</span>,<span class="string">'Label'</span>,sprintf(<span class="string">'PvalueI%i'</span>,i)})
+
+    scores(vascao.interactions{i}, <span class="string">'Title'</span>, <span class="string">'Int LFR/Ctrl x Time'</span>, <span class="string">'ObsClass'</span>, vascao.design(:,1)*10+vascao.design(:,2));
+    legend(<span class="string">'Ctrl+T3'</span>,<span class="string">'Case+T3'</span>,<span class="string">'Ctrl+Labour'</span>,<span class="string">'Case+Labour'</span>);
+
+    <span class="keyword">if</span> length(vascao.interactions{i}.ind)==1
+        ylabel(var_l2(vascao.interactions{i}.ind))
+    <span class="keyword">else</span>
+        loadings(model,<span class="string">'Title'</span>, <span class="string">'Int LFR/Ctrl x Time'</span>, <span class="string">'VarsLabel'</span>, var_l2(sort(vascao.interactions{i}.ind)));
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+</pre>
+<pre class="codeoutput">
+TvASCA =
+
+  14&times;3 table
+
+    Order           Label            PvalueF1
+    _____    ____________________    ________
+
+      1      {'RARRESS'         }    0.024975
+      2      {'LBP'             }     0.10989
+      3      {'IFN-G'           }    0.033966
+      4      {'IL-10'           }    0.023976
+      5      {'IL-23'           }     0.02997
+      6      {'IL-6_rank'       }    0.025974
+      7      {'IL-8'            }    0.025974
+      8      {'Adiponectin_rank'}    0.030969
+      9      {'Resistin'        }    0.047952
+     10      {'IL-15'           }    0.026973
+     11      {'VEGF'            }    0.025974
+     12      {'Leptin'          }     0.02997
+     13      {'Adipo/Lep'       }    0.027972
+     14      {'Adipo/Resis_rank'}    0.026973
+
+
+TvASCA =
+
+  14&times;3 table
+
+    Order           Label            PvalueF2
+    _____    ____________________    ________
+
+      1      {'RARRESS'         }    0.002997
+      2      {'LBP'             }    0.001998
+      3      {'IFN-G'           }    0.000999
+      4      {'IL-10'           }    0.007992
+      5      {'IL-23'           }    0.000999
+      6      {'IL-6_rank'       }    0.000999
+      7      {'IL-8'            }    0.000999
+      8      {'Adiponectin_rank'}    0.000999
+      9      {'Resistin'        }    0.000999
+     10      {'IL-15'           }    0.000999
+     11      {'VEGF'            }    0.000999
+     12      {'Leptin'          }    0.000999
+     13      {'Adipo/Lep'       }    0.002997
+     14      {'Adipo/Resis_rank'}    0.000999
+
+
+TvASCA =
+
+  14&times;3 table
+
+    Order           Label            PvalueF3
+    _____    ____________________    ________
+
+      1      {'RARRESS'         }    0.000999
+      2      {'LBP'             }    0.000999
+      3      {'IFN-G'           }    0.000999
+      4      {'IL-10'           }    0.000999
+      5      {'IL-23'           }    0.000999
+      6      {'IL-6_rank'       }    0.000999
+      7      {'IL-8'            }    0.000999
+      8      {'Adiponectin_rank'}    0.000999
+      9      {'Resistin'        }    0.000999
+     10      {'IL-15'           }    0.000999
+     11      {'VEGF'            }    0.000999
+     12      {'Leptin'          }    0.000999
+     13      {'Adipo/Lep'       }    0.000999
+     14      {'Adipo/Resis_rank'}    0.000999
+
+</pre>
+<img vspace="5" hspace="5" src="vasca_biomarkers_03.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_04.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_05.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_06.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_07.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_08.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025. 
+% Script to analyze the inflammatory biomarkers
+%
+% We consider the following model: 
+%
+%   X = A + B + C(A) + AB + E
+%
+% with A: Class (Control vs IUGR), B: Time (T3, Labour), C(A): Individual
+%
+% coded by: Jose Camacho (josecamacho@ugr.es)
+% last modification: 15/May/2025
+%
+% Copyright (C) 2025  University of Granada, Granada
+% 
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+%% Prepare data
+
+clear
+close all
+clc
+
+% comment the line below to observe full randomness
+rng(0); % we fix the random seed for repetitivity, but permutation testing is stochastic so a little variability is expected in the p-values and associated figures
+
+pvalue = 0.05 
+
+load biomark_vasca.mat
+
+X = X_ASCAt;
+Xraw = X;
+F = F_ASCA;
+var_l = var_final;
+
+ind = find(F(:,2)==3);% do not consider newborns
+X(ind,:) = [];
+Xraw(ind,:) = [];
+F(ind,:) = [];
+
+Xr =  rankTransform(X);
+Xn = X; Xn(find(isnan(X)))=0;
+Xrn = X; Xrn(find(isnan(X)))=0; 
+X = [X Xr]; % Careful: use [X/norm(Xn) Xr/norm(Xrn)] if not autoscaled
+
+for i=1:length(var_final), var_l{end+1} = strcat(var_l{i},'_rank'); end
+
+clear X_ASCAt F_ASCA var_final Xr Xn Xrn
+
+
+%% FDR (Q-value)
+       
+
+[T, parglmoMC] = parglmMC(X, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
+T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
+
+
+%% Compare with after rank tranform (if similar, raw data preferred) 
+
+half = length(var_l)/2;
+noTr = 1:half;
+Tr = half+1:2*half;
+
+diff1 = find( (parglmoMC.p(noTr,1)<pvalue | parglmoMC.p(Tr,1)<pvalue) & abs(parglmoMC.p(noTr,1)-parglmoMC.p(Tr,1)) > pvalue);
+if length(diff1)>0, disp('Check the following variables in Factor 1:'), end
+disp(var_l(diff1))
+
+diff2 = find( (parglmoMC.p(noTr,2)<pvalue | parglmoMC.p(Tr,2)<pvalue) & abs(parglmoMC.p(noTr,2)-parglmoMC.p(Tr,2)) > pvalue);
+if length(diff2)>0, disp('Check the following variables in Factor 2:'), end
+disp(var_l(diff2))
+
+diff4 = find( (parglmoMC.p(noTr,4)<pvalue | parglmoMC.p(Tr,4)<pvalue) & abs(parglmoMC.p(noTr,4)-parglmoMC.p(Tr,4)) > pvalue);
+if length(diff4)>0, disp('Check the following variables in the Interaction:'), end;
+disp(var_l(diff4))
+
+X2 = X(:,noTr);
+var_l2 = var_l(noTr);
+    
+if length(diff1)==0 && length(diff2)==0 && length(diff4)==0 
+    disp('Rank transformation does not make a difference, so we are safe to use the original data.'); 
+else
+    disp('We use the rank tranformation for the Q-value of non-normal variables.');
+    parglmoMC.p(unique([diff1;diff2;diff4]),:) = parglmoMC.p(unique([diff1;diff2;diff4])+half,:);
+    X2(:,unique([diff1;diff2;diff4])) = X(:,unique([diff1;diff2;diff4])+half);
+    var_l2(unique([diff1;diff2;diff4])) = var_l(unique([diff1;diff2;diff4])+half);
+end
+
+
+%% Univariate inference: Q-value with selected features
+
+[T, parglmoMC] = parglmMC(X2, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
+T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+
+
+TQ = table(var_l2', parglmoMC.p(:,1), parglmoMC.p(:,2), parglmoMC.p(:,4),'VariableNames', {'Labels','QvalueLFRCtrl','QvalueTime','QvalueInt'})
+
+
+h=figure; hold on
+for factor=1:3
+    plot(-log10(parglmoMC.p(parglmoMC.ordFactors(factor,:),factor)))
+end
+plot(-log10(parglmoMC.p(parglmoMC.ordInteractions(1,:),4)))
+plot([1 size(X2,2)],-log10([pvalue pvalue]),'rREPLACE_WITH_DASH_DASH')
+legend('Factor LFR/Ctrl','Factor Time','Factor Individual','LFR/Ctrl x Time','\alpha=0.05','Location','south')
+a=get(h,'CurrentAxes');
+set(a,'FontSize',14)
+set(a,'YScale','log')
+ylabel('-log_{10}(p-value)','FontSize',18)
+xlabel('Variables in selected order','FontSize',18)
+title('Manhattan Plot Qvalue')
+axis tight
+
+
+%% Multivariate inference: ASCA 
+
+[T, parglmo] = parglm(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
+T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+
+
+%% Multivariate inference with variable selection: VASCA 
+
+[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
+T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+
+TtQ = table(var_l2', parglmoVS.p(:,1), parglmoVS.p(:,2), parglmoVS.p(:,4),'VariableNames', {'Labels','VASCALFRCtrl','VASCATime','VASCAInt'})
+
+h=figure; hold on
+for factor=1:3
+    plot(-log10(parglmoVS.p(parglmoVS.ordFactors(factor,:),factor)))
+end
+plot(-log10(parglmoVS.p(parglmoVS.ordInteractions(1,:),4)))
+plot([1 size(X2,2)],-log10([pvalue pvalue]),'rREPLACE_WITH_DASH_DASH')
+legend('Factor LFR/Ctrl','Factor Time','Factor Individual','LFR/Ctrl x Time','\alpha=0.05','Location','south')
+a=get(h,'CurrentAxes');
+set(a,'FontSize',14)
+set(a,'YScale','log')
+ylabel('-log_{10}(p-value)','FontSize',18)
+xlabel('Variables in selected order','FontSize',18)
+title('Manhattan Plot vASCA')
+axis tight
+
+
+%% Display results: VASCA
+
+vascao = vasca(parglmoVS, pvalue);
+
+
+% LFR/Ctrl factor
+
+i=1;
+if isfield(vascao.factors{i},'scores')
+
+    TvASCA = table((1:length(vascao.factors{i}.ind))',var_l2(sort(vascao.factors{i}.ind))', vascao.p(sort(vascao.factors{i}.ind),i),'VariableNames', {'Order','Label',sprintf('PvalueF%i',i)})
+    
+    scores(vascao.factors{i}, 'Title', 'Case/control', 'ObsClass', vascao.design(:,i));
+    legend('Control', 'LFG');
+
+    if length(vascao.factors{i}.ind)==1
+        ylabel(var_l2(vascao.factors{i}.ind))
+    else
+        loadings(vascao.factors{i}, 'Title','Case/control','VarsLabel', var_l2(sort(vascao.factors{i}.ind)));
+    end
+
+end
+
+
+% Time Factor
+
+i=2;
+if isfield(vascao.factors{i},'scores')
+
+    TvASCA = table((1:length(vascao.factors{i}.ind))',var_l2(sort(vascao.factors{i}.ind))', vascao.p(sort(vascao.factors{i}.ind),i),'VariableNames', {'Order','Label',sprintf('PvalueF%i',i)})
+
+    vascao.factors{i}.loads = -vascao.factors{i}.loads;
+    vascao.factors{i}.scoresV = -vascao.factors{i}.scoresV;
+
+    scores(vascao.factors{i}, 'Title', 'Time', 'ObsClass',vascao.design(:,i));
+    legend('T3', 'Labour');
+
+    if length(vascao.factors{i}.ind)==1
+        ylabel(var_l2(vascao.factors{i}.ind))
+    else
+        loadings(vascao.factors{i}, 'Title','Time', 'VarsLabel', var_l2(sort(vascao.factors{i}.ind))); 
+    end
+    
+end
+
+
+% Factor Individual
+    
+i=3;
+if isfield(vascao.factors{i},'scores')
+
+    TvASCA = table((1:length(vascao.factors{i}.ind))',var_l2(sort(vascao.factors{i}.ind))', vascao.p(sort(vascao.factors{i}.ind),i),'VariableNames', {'Order','Label',sprintf('PvalueF%i',i)})
+    
+    if vascao.factors{i}.stasig
+        varPca(vascao.factors{i}.matrix);
+        mspcPca(vascao.factors{i}.matrix, 'PCs', 1:2, 'ObsTest', vascao.factors{i}.matrix+vascao.residuals, 'PlotCal', false, 'ObsLabel', vascao.design(:,3), 'ObsClass', vascao.design(:,1), 'LimType', 1);
+        title(sprintf('Factor %d',i));
+        legend('Control', 'LFG');
+
+    end
+end
+
+
+% 'Case/control' x 'Time'
+
+i=1;
+if isfield(vascao.interactions{i},'scores')
+
+    TvASCA = table((1:length(vascao.interactions{i}.ind))',var_l2(sort(vascao.interactions{i}.ind))', vascao.p(sort(vascao.interactions{i}.ind),3+i),'VariableNames', {'Order','Label',sprintf('PvalueI%i',i)})
+    
+    scores(vascao.interactions{i}, 'Title', 'Int LFR/Ctrl x Time', 'ObsClass', vascao.design(:,1)*10+vascao.design(:,2));
+    legend('Ctrl+T3','Case+T3','Ctrl+Labour','Case+Labour');
+
+    if length(vascao.interactions{i}.ind)==1
+        ylabel(var_l2(vascao.interactions{i}.ind))
+    else
+        loadings(model,'Title', 'Int LFR/Ctrl x Time', 'VarsLabel', var_l2(sort(vascao.interactions{i}.ind))); 
+    end
+    
+end
+
+##### SOURCE END #####
+-->
+</body>
+</html>

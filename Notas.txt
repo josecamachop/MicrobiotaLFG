@@ -1,0 +1,1 @@
+Para publicar en GitHub, eliminar el doc y el directorio de antiguos, y quitar todos los comentarios en los scripts

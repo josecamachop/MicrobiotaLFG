@@ -1,0 +1,427 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025.</title>
+<meta name="generator" content="MATLAB 24.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2025-05-15">
+<meta name="DC.source" content="vasca_dataprep.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025.</h1>
+<!--introduction-->
+<p>Script to read and prepare the code.</p>
+<p>Software preparation: Install MEDA-Toolbox v1.8</p>
+<p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) &Oacute;liver Aleksandrei Polushkina (<a href="mailto:oap327@gmail.com">oap327@gmail.com</a>) last modification: 7/Abr/2025</p>
+<p>Copyright (C) 2025 University of Granada, Granada</p>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Load the data</a>
+</li>
+<li>
+<a href="#2">Blood-hemodynamic data preparation</a>
+</li>
+<li>
+<a href="#3">Inflammatory Biomark dataprep</a>
+</li>
+<li>
+<a href="#4">Bacteria dataprep</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Load the data</h2>
+<pre class="codeinput">clear
+close <span class="string">all</span>
+clc
+
+data = importdata(<span class="string">'BD_ESTADISTICA_PI1701215_CGLL.xlsx'</span>);
+
+X = data.data.BD_analisis(1:95, 3:end);
+
+obs_l = data.textdata.BD_analisis(3:end-1, 2);
+var_l = data.textdata.BD_analisis(2, 3:end);
+
+class(find(ismember(obs_l, <span class="string">'control'</span>))) = 1;
+class(find(ismember(obs_l, <span class="string">'CIR'</span>))) = 2;
+class(find(ismember(obs_l, <span class="string">'PEG'</span>))) = 3;
+class = class';
+class_l = data.textdata.BD_analisis(2, 2);
+
+save <span class="string">data_base.mat</span> <span class="string">X</span> <span class="string">var_l</span> <span class="string">obs_l</span> <span class="string">class</span>
+</pre>
+<h2 id="2">Blood-hemodynamic data preparation</h2>
+<pre class="codeinput">clear
+close <span class="string">all</span>
+clc
+load <span class="string">data_base.mat</span>
+
+X_blood = X(1:95, 1:12);
+X_hemo = X(1:95, 14:25);
+
+<span class="comment">% Etiquetas variables</span>
+var_blood = var_l(1:end, 1:12);
+var_hemo = var_l(1:end, 14:25);
+
+var_final = {<span class="string">'Hemoglobin'</span>, <span class="string">'Hematocrite'</span>, <span class="string">'MCV'</span>, <span class="string">'Platelets'</span>, <span class="string">'Systolic BP'</span>, <span class="keyword">...</span>
+    <span class="string">'Diastolic BP'</span>, <span class="string">'Mother weight'</span>, <span class="string">'BMI'</span>};
+
+<span class="comment">% Joining matrices and removing PEG individuals</span>
+X_bh = [X_blood, X_hemo];
+var_bh = [var_blood, var_hemo];
+ind = find(class == 3);
+X_bh(ind, :) = [];
+class(ind) = [];
+
+<span class="comment">% Rearrenge matrix</span>
+ind_T1 = [find(contains(var_bh, <span class="string">'1T'</span>)), find(contains(var_bh, <span class="string">'12'</span>))];
+ind_T2 = [find(contains(var_bh, <span class="string">'2T'</span>)), find(contains(var_bh, <span class="string">'24'</span>))];
+ind_T3 = [find(contains(var_bh, <span class="string">'3T'</span>)), find(contains(var_bh, <span class="string">'32'</span>))];
+
+X_tiempo = [];
+<span class="keyword">for</span> i = 1:length(ind_T1)
+    X_tiempo(:, i) = [X_bh(:, ind_T1(i)); X_bh(:, ind_T2(i)); X_bh(:, ind_T3(i))];
+<span class="keyword">end</span>
+
+tiempo = repelem(1:3, length(class))';
+id = repmat(1:length(class), 1, 3);
+F_ASCA = [[class; class; class], tiempo, id'];
+X_ASCAt = X_tiempo;
+
+save <span class="string">blood_hemo_vasca.mat</span> <span class="string">X_ASCAt</span> <span class="string">F_ASCA</span> <span class="string">id</span> <span class="string">var_bh</span> <span class="string">var_final</span>
+</pre>
+<h2 id="3">Inflammatory Biomark dataprep</h2>
+<pre class="codeinput">clear
+close <span class="string">all</span>
+clc
+load <span class="string">data_base.mat</span>
+
+<span class="comment">% Data matrix + labels</span>
+X_biomark = X(1:95, 34:75);
+var_biomark = var_l(1:end, 34:75);
+
+<span class="comment">% Remove PEG individuals</span>
+ind = find(class == 3);
+X_biomark(ind, :) = [];
+class(ind, :) = [];
+
+var_final = {<span class="string">'RARRESS'</span>, <span class="string">'LBP'</span>, <span class="string">'IFN-G'</span>, <span class="string">'IL-10'</span>, <span class="string">'IL-23'</span>,<span class="string">'IL-6'</span>, <span class="keyword">...</span>
+    <span class="string">'IL-8'</span>, <span class="string">'Adiponectin'</span>, <span class="string">'Resistin'</span>, <span class="string">'IL-15'</span>, <span class="string">'VEGF'</span>, <span class="string">'Leptin'</span>, <span class="keyword">...</span>
+    <span class="string">'Adipo/Lep'</span>, <span class="string">'Adipo/Resis'</span>};
+
+id = repmat(1:length(class), 1, 3);
+F_mom_baby = [[class; class; class], repelem(1:3, length(class))', id'];
+ind_pre = find(contains(var_biomark, <span class="string">'_pre'</span>));
+ind_parto = find(contains(var_biomark, <span class="string">'_parto'</span>));
+ind_stage = find(contains(var_biomark, <span class="string">'fetal'</span>));
+
+X_tiempo = [];
+<span class="keyword">for</span> i = 1:14
+    X_tiempo(:, i) = [X_biomark(:, ind_pre(i)); X_biomark(:, ind_parto(i)); X_biomark(:, ind_stage(i))];
+<span class="keyword">end</span>
+
+X_ASCAt = X_tiempo;
+F_ASCA = F_mom_baby;
+
+save <span class="string">biomark_vasca.mat</span> <span class="string">X_ASCAt</span> <span class="string">F_ASCA</span> <span class="string">id</span> <span class="string">var_biomark</span> <span class="string">var_final</span>
+</pre>
+<h2 id="4">Bacteria dataprep</h2>
+<pre class="codeinput">clear
+close <span class="string">all</span>
+clc
+load <span class="string">data_base.mat</span>
+
+<span class="comment">% Data matrix of bacteria and labels</span>
+X_bact = X(:, 76:end);
+var_bact = var_l(:, 76:end);
+
+<span class="comment">% Removing PEG individuals</span>
+ind = find(class == 3);
+X_bact(ind, :) = [];
+class(ind) = [];
+
+<span class="comment">% Create F</span>
+id = repmat(1:length(class), 1, 4);
+F = [repmat(class, 4 ,1), repelem(1:4, length(class))', id'];
+
+<span class="comment">% Rearrange data</span>
+var_nombre = regexprep(var_bact, <span class="string">'3R'</span>, <span class="string">'1'</span>);
+var_nombre = regexprep(var_nombre, <span class="string">'MADRE'</span>, <span class="string">'2'</span>);
+var_nombre = regexprep(var_nombre, <span class="string">'MECONIO'</span>, <span class="string">'3'</span>);
+var_nombre = regexprep(var_nombre, <span class="string">'CUARENTENA'</span>, <span class="string">'4'</span>);
+
+[var_ord, ind] = sort(var_nombre);
+X_tiempo = X_bact(:, ind);
+var_final = unique(regexprep(var_ord, <span class="string">'[\d"]'</span>, <span class="string">''</span>));
+
+<span class="keyword">for</span> i=1:length(var_final), var_final{i} = strrep(var_final{i},<span class="string">'__'</span>,<span class="string">'-'</span>); <span class="keyword">end</span>
+<span class="keyword">for</span> i=1:length(var_final), var_final{i} = strrep(var_final{i},<span class="string">'_'</span>,<span class="string">''</span>); <span class="keyword">end</span>
+
+tmp1 = find(contains(var_ord, <span class="string">'_1'</span>));
+tmp2 = find(contains(var_ord, <span class="string">'_2'</span>));
+tmp3 = find(contains(var_ord, <span class="string">'_3'</span>));
+tmp4 = find(contains(var_ord, <span class="string">'_4'</span>));
+
+<span class="comment">% Data matrix, each column a bacteria</span>
+X_final = [X_tiempo(:, tmp1); X_tiempo(:, tmp2); X_tiempo(:, tmp3); X_tiempo(:, tmp4)];
+
+X_ASCAt = X_final;
+F_ASCA = F;
+
+save <span class="string">bacteria_vasca.mat</span> <span class="string">X_ASCAt</span> <span class="string">F_ASCA</span> <span class="string">var_final</span> <span class="string">var_bact</span>
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025. 
+% Script to read and prepare the code.
+%
+% Software preparation: Install MEDA-Toolbox v1.8
+%
+% coded by: Jose Camacho (josecamacho@ugr.es)
+%       Óliver Aleksandrei Polushkina (oap327@gmail.com)
+% last modification: 7/Abr/2025
+%
+% Copyright (C) 2025  University of Granada, Granada
+% 
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+%% Load the data
+
+clear
+close all
+clc
+
+data = importdata('BD_ESTADISTICA_PI1701215_CGLL.xlsx');
+
+X = data.data.BD_analisis(1:95, 3:end);
+
+obs_l = data.textdata.BD_analisis(3:end-1, 2);
+var_l = data.textdata.BD_analisis(2, 3:end);
+
+class(find(ismember(obs_l, 'control'))) = 1;
+class(find(ismember(obs_l, 'CIR'))) = 2;
+class(find(ismember(obs_l, 'PEG'))) = 3;
+class = class';
+class_l = data.textdata.BD_analisis(2, 2);
+
+save data_base.mat X var_l obs_l class
+
+
+%% Blood-hemodynamic data preparation
+
+clear
+close all
+clc
+load data_base.mat
+
+X_blood = X(1:95, 1:12);
+X_hemo = X(1:95, 14:25);
+
+% Etiquetas variables
+var_blood = var_l(1:end, 1:12);
+var_hemo = var_l(1:end, 14:25);
+
+var_final = {'Hemoglobin', 'Hematocrite', 'MCV', 'Platelets', 'Systolic BP', ...
+    'Diastolic BP', 'Mother weight', 'BMI'};
+
+% Joining matrices and removing PEG individuals
+X_bh = [X_blood, X_hemo];
+var_bh = [var_blood, var_hemo];
+ind = find(class == 3);
+X_bh(ind, :) = [];
+class(ind) = [];
+
+% Rearrenge matrix
+ind_T1 = [find(contains(var_bh, '1T')), find(contains(var_bh, '12'))];
+ind_T2 = [find(contains(var_bh, '2T')), find(contains(var_bh, '24'))];
+ind_T3 = [find(contains(var_bh, '3T')), find(contains(var_bh, '32'))];
+
+X_tiempo = [];
+for i = 1:length(ind_T1)
+    X_tiempo(:, i) = [X_bh(:, ind_T1(i)); X_bh(:, ind_T2(i)); X_bh(:, ind_T3(i))];
+end
+
+tiempo = repelem(1:3, length(class))';
+id = repmat(1:length(class), 1, 3);
+F_ASCA = [[class; class; class], tiempo, id'];
+X_ASCAt = X_tiempo;
+
+save blood_hemo_vasca.mat X_ASCAt F_ASCA id var_bh var_final
+
+
+%% Inflammatory Biomark dataprep
+
+clear
+close all
+clc
+load data_base.mat
+
+% Data matrix + labels
+X_biomark = X(1:95, 34:75);
+var_biomark = var_l(1:end, 34:75);
+
+% Remove PEG individuals
+ind = find(class == 3);
+X_biomark(ind, :) = [];
+class(ind, :) = [];
+
+var_final = {'RARRESS', 'LBP', 'IFN-G', 'IL-10', 'IL-23','IL-6', ...
+    'IL-8', 'Adiponectin', 'Resistin', 'IL-15', 'VEGF', 'Leptin', ...
+    'Adipo/Lep', 'Adipo/Resis'};
+
+id = repmat(1:length(class), 1, 3);
+F_mom_baby = [[class; class; class], repelem(1:3, length(class))', id'];
+ind_pre = find(contains(var_biomark, '_pre'));
+ind_parto = find(contains(var_biomark, '_parto'));
+ind_stage = find(contains(var_biomark, 'fetal'));
+
+X_tiempo = [];
+for i = 1:14
+    X_tiempo(:, i) = [X_biomark(:, ind_pre(i)); X_biomark(:, ind_parto(i)); X_biomark(:, ind_stage(i))];
+end
+
+X_ASCAt = X_tiempo;
+F_ASCA = F_mom_baby;
+
+save biomark_vasca.mat X_ASCAt F_ASCA id var_biomark var_final
+
+
+%% Bacteria dataprep
+
+clear
+close all
+clc
+load data_base.mat
+
+% Data matrix of bacteria and labels
+X_bact = X(:, 76:end);
+var_bact = var_l(:, 76:end);
+
+% Removing PEG individuals
+ind = find(class == 3);
+X_bact(ind, :) = [];
+class(ind) = [];
+
+% Create F
+id = repmat(1:length(class), 1, 4);
+F = [repmat(class, 4 ,1), repelem(1:4, length(class))', id'];
+
+% Rearrange data
+var_nombre = regexprep(var_bact, '3R', '1');
+var_nombre = regexprep(var_nombre, 'MADRE', '2');
+var_nombre = regexprep(var_nombre, 'MECONIO', '3');
+var_nombre = regexprep(var_nombre, 'CUARENTENA', '4');
+
+[var_ord, ind] = sort(var_nombre);
+X_tiempo = X_bact(:, ind);
+var_final = unique(regexprep(var_ord, '[\d"]', ''));
+
+for i=1:length(var_final), var_final{i} = strrep(var_final{i},'__','-'); end
+for i=1:length(var_final), var_final{i} = strrep(var_final{i},'_',''); end
+
+tmp1 = find(contains(var_ord, '_1'));
+tmp2 = find(contains(var_ord, '_2'));
+tmp3 = find(contains(var_ord, '_3'));
+tmp4 = find(contains(var_ord, '_4'));
+
+% Data matrix, each column a bacteria
+X_final = [X_tiempo(:, tmp1); X_tiempo(:, tmp2); X_tiempo(:, tmp3); X_tiempo(:, tmp4)];
+
+X_ASCAt = X_final;
+F_ASCA = F;
+
+save bacteria_vasca.mat X_ASCAt F_ASCA var_final var_bact
+##### SOURCE END #####
+-->
+</body>
+</html>
