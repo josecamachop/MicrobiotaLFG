@@ -7,10 +7,12 @@
 %
 % with A: Class (Control vs IUGR), B: Time (T3, Labour), C(A): Individual
 %
-% coded by: Jose Camacho (josecamacho@ugr.es)
-% last modification: 15/May/2025
+% Software preparation: Install MEDA-Toolbox v1.14
 %
-% Copyright (C) 2025  University of Granada, Granada
+% coded by: Jose Camacho (josecamacho@ugr.es)
+% last modification: 13/Jul/2026
+%
+% Copyright (C) 2026  University of Granada, Granada
 % 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -83,7 +85,7 @@ clear X_ASCAt F_ASCA var_final Xr Xn Xrn
        
 
 [T, parglmoMC] = parglmMC(X, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
 
 
 %% Compare with after rank tranform (if similar, raw data preferred) 
@@ -120,7 +122,7 @@ end
 %% Univariate inference: Q-value with selected features
 
 [T, parglmoMC] = parglmMC(X2, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 
 TQ = table(var_l2', parglmoMC.p(:,1), parglmoMC.p(:,2), parglmoMC.p(:,4),'VariableNames', {'Labels','QvalueLFRCtrl','QvalueTime','QvalueInt'})
@@ -149,13 +151,13 @@ saveas(gcf,'Figures/FigManhattan_Qv_bio.png','png');
 %% Multivariate inference: ASCA 
 
 [T, parglmo] = parglm(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 
 %% Multivariate inference with variable selection: VASCA 
 
-[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1], 'Select', 'FirstPeakInverse');
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 TtQ = table(var_l2', parglmoVS.p(:,1), parglmoVS.p(:,2), parglmoVS.p(:,4),'VariableNames', {'Labels','VASCALFRCtrl','VASCATime','VASCAInt'})
 
@@ -181,7 +183,7 @@ saveas(gcf,'Figures/FigManhattan_bio.png','png');
 
 %% Display results: VASCA
 
-vascao = vasca(parglmoVS, pvalue);
+vascao = vasca(parglmoVS, 'SignLev', pvalue);
 
 
 % LFR/Ctrl factor

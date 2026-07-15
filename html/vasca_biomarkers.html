@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025.</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-05-15">
+<meta name="DC.date" content="2026-07-14">
 <meta name="DC.source" content="vasca_biomarkers.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -83,8 +83,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <pre class="language-matlab">X = A + B + C(A) + AB + E
 </pre>
 <p>with A: Class (Control vs IUGR), B: Time (T3, Labour), C(A): Individual</p>
-<p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 15/May/2025</p>
-<p>Copyright (C) 2025 University of Granada, Granada</p>
+<p>Software preparation: Install MEDA-Toolbox v1.14</p>
+<p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 13/Jul/2026</p>
+<p>Copyright (C) 2026 University of Granada, Granada</p>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
@@ -146,32 +147,23 @@ X = [X Xr]; <span class="comment">% Careful: use [X/norm(Xn) Xr/norm(Xrn)] if no
 
 clear <span class="string">X_ASCAt</span> <span class="string">F_ASCA</span> <span class="string">var_final</span> <span class="string">Xr</span> <span class="string">Xn</span> <span class="string">Xrn</span>
 </pre>
-<pre class="codeoutput">
-pvalue =
-
+<pre class="codeoutput">pvalue =
     0.0500
-
 </pre>
 <h2 id="2">FDR (Q-value)</h2>
 <pre class="codeinput">[T, parglmoMC] = parglmMC(X, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Mtc'</span>, -1, <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
-T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int Class x Time'</span>}
+T.Source(1:4)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int Class x Time'</span>}
 </pre>
-<pre class="codeoutput">
-T =
-
-  7&times;7 table
-
+<pre class="codeoutput">T =
+  6&times;7 table
            Source           SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue 
     ____________________    ______    ___________    ___    ______    ______    __________
-
-    {'Mean'            }     15215       73.014        1     15215       NaN           NaN
-    {'F1: LFR/Ctrl'    }    131.82      0.84592        1    131.82    14.162      0.043332
-    {'F2: Time'        }    59.781      0.42197        1    59.781     32.55    0.00049998
-    {'F3: Individual'  }    2727.3       24.482       85    32.086    74.748    5.8821e-05
-    {'Int Class x Time'}    9.1209     0.088764        1    9.1209    3.0729       0.87009
-    {'Residuals'       }    787.19       6.3543       85    9.2611       NaN           NaN
-    {'Total'           }     18067          100      174    103.83       NaN           NaN
-
+    {'F1: LFR/Ctrl'    }    131.82       3.5504        1    131.82    14.162      0.037999
+    {'F2: Time'        }    59.781       1.6101        1    59.781     32.55    0.00099996
+    {'F3: Individual'  }    2727.3       73.455       85    32.086    74.748    5.8821e-05
+    {'Int Class x Time'}    9.1209      0.24565        1    9.1209    3.0729       0.87253
+    {'Residuals'       }    787.19       21.201       85    9.2611       NaN           NaN
+    {'Total'           }    3712.9       100.06      173    21.462       NaN           NaN
 </pre>
 <h2 id="3">Compare with after rank tranform (if similar, raw data preferred)</h2>
 <pre class="codeinput">half = length(var_l)/2;
@@ -203,16 +195,14 @@ var_l2 = var_l(noTr);
 <span class="keyword">end</span>
 </pre>
 <pre class="codeoutput">Check the following variables in Factor 1:
-    {'Adiponectin'}
-
+    {'Adiponectin'}    {'Resistin'}
 Check the following variables in Factor 2:
     {'IL-6'}    {'Adipo/Resis'}
-
 We use the rank tranformation for the Q-value of non-normal variables.
 </pre>
 <h2 id="4">Univariate inference: Q-value with selected features</h2>
 <pre class="codeinput">[T, parglmoMC] = parglmMC(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Mtc'</span>, -1, <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
-T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+T.Source(1:4)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
 
 
 TQ = table(var_l2', parglmoMC.p(:,1), parglmoMC.p(:,2), parglmoMC.p(:,4),<span class="string">'VariableNames'</span>, {<span class="string">'Labels'</span>,<span class="string">'QvalueLFRCtrl'</span>,<span class="string">'QvalueTime'</span>,<span class="string">'QvalueInt'</span>})
@@ -233,70 +223,53 @@ xlabel(<span class="string">'Variables in selected order'</span>,<span class="st
 title(<span class="string">'Manhattan Plot Qvalue'</span>)
 axis <span class="string">tight</span>
 </pre>
-<pre class="codeoutput">
-T =
-
-  7&times;7 table
-
+<pre class="codeoutput">T =
+  6&times;7 table
             Source             SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue 
     _______________________    ______    ___________    ___    ______    ______    __________
-
-    {'Mean'               }    8322.6       65.568        1    8322.6       NaN           NaN
-    {'F1: LFR/Ctrl'       }    60.903      0.85273        1    60.903    12.307      0.040497
-    {'F2: Time'           }    30.035      0.44915        1    30.035     21.46    0.00099993
-    {'F3: Individual'     }    1381.1       30.836       85    16.248    74.748    0.00012499
-    {'Int LFR/Ctrl x Time'}      4.07      0.11655        1      4.07    3.0729       0.82802
-    {'Residuals'          }    380.05       6.7718       85    4.4712       NaN           NaN
-    {'Total'              }    9813.7          100      174      56.4       NaN           NaN
-
-
+    {'F1: LFR/Ctrl'       }    57.896      3.1236         1    57.896    12.307      0.069995
+    {'F2: Time'           }    27.612      1.4897         1    27.612     21.46     0.0019999
+    {'F3: Individual'     }    1388.4      74.905        85    16.334    74.748    9.9993e-05
+    {'Int LFR/Ctrl x Time'}    4.6227      0.2494         1    4.6227    3.0729       0.81769
+    {'Residuals'          }    375.61      20.265        85    4.4189       NaN           NaN
+    {'Total'              }    1853.5      100.03       173    10.714       NaN           NaN
 TQ =
-
   14&times;4 table
-
            Labels           QvalueLFRCtrl    QvalueTime    QvalueInt
     ____________________    _____________    __________    _________
-
-    {'RARRESS'         }       0.57167          0.43522     0.90309 
-    {'LBP'             }      0.040497          0.32583     0.82802 
-    {'IFN-G'           }      0.090327          0.58596     0.82802 
-    {'IL-10'           }       0.12939       0.00099993     0.82802 
-    {'IL-23'           }       0.68322          0.90636     0.82802 
-    {'IL-6_rank'       }       0.68322        0.0054996     0.82802 
-    {'IL-8'            }       0.69253          0.58596     0.82802 
-    {'Adiponectin_rank'}       0.12939          0.25798     0.82802 
-    {'Resistin'        }      0.040497         0.027248     0.82802 
-    {'IL-15'           }       0.88779          0.58596     0.97564 
-    {'VEGF'            }       0.85148          0.58596     0.82802 
-    {'Leptin'          }       0.57167          0.25798     0.82802 
-    {'Adipo/Lep'       }       0.68322          0.46119     0.82802 
-    {'Adipo/Resis_rank'}       0.68322        0.0069995     0.82802 
-
+    {'RARRESS'         }       0.56839         0.44034      0.90001 
+    {'LBP'             }      0.069995         0.32355      0.81769 
+    {'IFN-G'           }       0.10499         0.58757      0.81769 
+    {'IL-10'           }       0.12159       0.0019999      0.81769 
+    {'IL-23'           }       0.68553         0.90751      0.81769 
+    {'IL-6_rank'       }       0.68553       0.0029998      0.81769 
+    {'IL-8'            }       0.68553         0.58757      0.81769 
+    {'Adiponectin_rank'}       0.12159         0.24998      0.81769 
+    {'Resistin_rank'   }       0.10499         0.10824      0.81769 
+    {'IL-15'           }       0.88594         0.58757       0.9765 
+    {'VEGF'            }       0.84886         0.58757      0.81769 
+    {'Leptin'          }       0.56839         0.24998      0.81769 
+    {'Adipo/Lep'       }       0.68553         0.46152      0.81769 
+    {'Adipo/Resis_rank'}       0.68553       0.0079994      0.81769 
 </pre>
 <img vspace="5" hspace="5" src="vasca_biomarkers_01.png" alt=""> <h2 id="5">Multivariate inference: ASCA</h2>
 <pre class="codeinput">[T, parglmo] = parglm(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
-T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+T.Source(1:4)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
 </pre>
-<pre class="codeoutput">
-T =
-
-  7&times;7 table
-
-            Source             SumSq     PercSumSq    df     MeanSq       F        Pvalue 
-    _______________________    ______    _________    ___    ______    _______    ________
-
-    {'Mean'               }    8322.6      84.806       1    8322.6        NaN         NaN
-    {'F1: LFR/Ctrl'       }    60.903      0.6206       1    60.903     3.7484    0.015984
-    {'F2: Time'           }    30.035     0.30605       1    30.035     6.7175    0.000999
-    {'F3: Individual'     }    1381.1      14.073      85    16.248     3.6339    0.000999
-    {'Int LFR/Ctrl x Time'}      4.07    0.041473       1      4.07    0.91027     0.82617
-    {'Residuals'          }    380.05      3.8727      85    4.4712        NaN         NaN
-    {'Total'              }    9813.7         100     174      56.4        NaN         NaN
-
+<pre class="codeoutput">T =
+  6&times;7 table
+            Source             SumSq     PercSumSq    df     MeanSq      F        Pvalue 
+    _______________________    ______    _________    ___    ______    ______    ________
+    {'F1: LFR/Ctrl'       }    57.896     3.1236        1    57.896    3.5446    0.025974
+    {'F2: Time'           }    27.612     1.4897        1    27.612    6.2485    0.000999
+    {'F3: Individual'     }    1388.4     74.905       85    16.334    3.6963    0.000999
+    {'Int LFR/Ctrl x Time'}    4.6227     0.2494        1    4.6227    1.0461     0.74625
+    {'Residuals'          }    375.61     20.265       85    4.4189       NaN         NaN
+    {'Total'              }    1853.5     100.03      173    10.714       NaN         NaN
 </pre>
 <h2 id="6">Multivariate inference with variable selection: VASCA</h2>
-<pre class="codeinput">[T, parglmoVS] = parglmVS(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
-T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+<pre class="codeinput">[T, parglmoVS] = parglmVS(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1], <span class="string">'Select'</span>, <span class="string">'FirstPeakInverse'</span>);
+T.Source(1:4)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
 
 TtQ = table(var_l2', parglmoVS.p(:,1), parglmoVS.p(:,2), parglmoVS.p(:,4),<span class="string">'VariableNames'</span>, {<span class="string">'Labels'</span>,<span class="string">'VASCALFRCtrl'</span>,<span class="string">'VASCATime'</span>,<span class="string">'VASCAInt'</span>})
 
@@ -315,48 +288,37 @@ xlabel(<span class="string">'Variables in selected order'</span>,<span class="st
 title(<span class="string">'Manhattan Plot vASCA'</span>)
 axis <span class="string">tight</span>
 </pre>
-<pre class="codeoutput">
-T =
-
-  7&times;7 table
-
+<pre class="codeoutput">T =
+  6&times;7 table
             Source             SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue
     _______________________    ______    ___________    ___    ______    ______    _________
-
-    {'Mean'               }    8322.6       65.568        1    8322.6       NaN         NaN 
-    {'F1: LFR/Ctrl'       }    60.903      0.85273        1    60.903    12.307    0.023976 
-    {'F2: Time'           }    30.035      0.44915        1    30.035     21.46    0.000999 
-    {'F3: Individual'     }    1381.1       30.836       85    16.248    74.748    0.000999 
-    {'Int LFR/Ctrl x Time'}      4.07      0.11655        1      4.07    3.0729     0.82517 
-    {'Residuals'          }    380.05       6.7718       85    4.4712       NaN         NaN 
-    {'Total'              }    9813.7          100      174      56.4       NaN         NaN 
-
-
+    {'F1: LFR/Ctrl'       }    57.896       2.8382        1    57.896    12.307    0.040959 
+    {'F2: Time'           }    27.612       1.5333        1    27.612     21.46    0.000999 
+    {'F3: Individual'     }    1388.4       75.083       85    16.334    74.748    0.000999 
+    {'Int LFR/Ctrl x Time'}    4.6227      0.27019        1    4.6227    3.0729     0.73826 
+    {'Residuals'          }    375.61       20.273       85    4.4189       NaN         NaN 
+    {'Total'              }    1853.5       99.997      173    10.714       NaN         NaN 
 TtQ =
-
   14&times;4 table
-
            Labels           VASCALFRCtrl    VASCATime    VASCAInt
     ____________________    ____________    _________    ________
-
-    {'RARRESS'         }      0.024975      0.002997     0.85714 
-    {'LBP'             }       0.10989      0.001998     0.85714 
-    {'IFN-G'           }      0.033966      0.000999     0.83816 
-    {'IL-10'           }      0.023976      0.007992     0.83816 
-    {'IL-23'           }       0.02997      0.000999     0.84216 
-    {'IL-6_rank'       }      0.025974      0.000999     0.85115 
-    {'IL-8'            }      0.025974      0.000999     0.87612 
-    {'Adiponectin_rank'}      0.030969      0.000999     0.83616 
-    {'Resistin'        }      0.047952      0.000999     0.85714 
-    {'IL-15'           }      0.026973      0.000999     0.82517 
-    {'VEGF'            }      0.025974      0.000999     0.83616 
-    {'Leptin'          }       0.02997      0.000999     0.85015 
-    {'Adipo/Lep'       }      0.027972      0.002997     0.83616 
-    {'Adipo/Resis_rank'}      0.026973      0.000999     0.84715 
-
+    {'RARRESS'         }      0.040959      0.000999     0.73826 
+    {'LBP'             }      0.040959      0.000999     0.73826 
+    {'IFN-G'           }      0.040959      0.000999     0.73826 
+    {'IL-10'           }      0.040959      0.000999     0.73826 
+    {'IL-23'           }      0.040959      0.000999     0.73826 
+    {'IL-6_rank'       }      0.040959      0.000999     0.73826 
+    {'IL-8'            }      0.040959      0.000999     0.73826 
+    {'Adiponectin_rank'}      0.040959      0.000999     0.73826 
+    {'Resistin_rank'   }      0.040959      0.000999     0.73826 
+    {'IL-15'           }      0.040959      0.000999     0.73826 
+    {'VEGF'            }      0.040959      0.000999     0.73826 
+    {'Leptin'          }      0.040959      0.000999     0.73826 
+    {'Adipo/Lep'       }      0.040959      0.000999     0.73826 
+    {'Adipo/Resis_rank'}      0.040959      0.000999     0.73826 
 </pre>
 <img vspace="5" hspace="5" src="vasca_biomarkers_02.png" alt=""> <h2 id="7">Display results: VASCA</h2>
-<pre class="codeinput">vascao = vasca(parglmoVS, pvalue);
+<pre class="codeinput">vascao = vasca(parglmoVS, <span class="string">'SignLev'</span>, pvalue);
 
 
 <span class="comment">% LFR/Ctrl factor</span>
@@ -435,60 +397,28 @@ i=1;
 
 <span class="keyword">end</span>
 </pre>
-<pre class="codeoutput">
-TvASCA =
-
+<pre class="codeoutput">TvASCA =
   14&times;3 table
-
     Order           Label            PvalueF1
     _____    ____________________    ________
-
-      1      {'RARRESS'         }    0.024975
-      2      {'LBP'             }     0.10989
-      3      {'IFN-G'           }    0.033966
-      4      {'IL-10'           }    0.023976
-      5      {'IL-23'           }     0.02997
-      6      {'IL-6_rank'       }    0.025974
-      7      {'IL-8'            }    0.025974
-      8      {'Adiponectin_rank'}    0.030969
-      9      {'Resistin'        }    0.047952
-     10      {'IL-15'           }    0.026973
-     11      {'VEGF'            }    0.025974
-     12      {'Leptin'          }     0.02997
-     13      {'Adipo/Lep'       }    0.027972
-     14      {'Adipo/Resis_rank'}    0.026973
-
-
+      1      {'RARRESS'         }    0.040959
+      2      {'LBP'             }    0.040959
+      3      {'IFN-G'           }    0.040959
+      4      {'IL-10'           }    0.040959
+      5      {'IL-23'           }    0.040959
+      6      {'IL-6_rank'       }    0.040959
+      7      {'IL-8'            }    0.040959
+      8      {'Adiponectin_rank'}    0.040959
+      9      {'Resistin_rank'   }    0.040959
+     10      {'IL-15'           }    0.040959
+     11      {'VEGF'            }    0.040959
+     12      {'Leptin'          }    0.040959
+     13      {'Adipo/Lep'       }    0.040959
+     14      {'Adipo/Resis_rank'}    0.040959
 TvASCA =
-
   14&times;3 table
-
     Order           Label            PvalueF2
     _____    ____________________    ________
-
-      1      {'RARRESS'         }    0.002997
-      2      {'LBP'             }    0.001998
-      3      {'IFN-G'           }    0.000999
-      4      {'IL-10'           }    0.007992
-      5      {'IL-23'           }    0.000999
-      6      {'IL-6_rank'       }    0.000999
-      7      {'IL-8'            }    0.000999
-      8      {'Adiponectin_rank'}    0.000999
-      9      {'Resistin'        }    0.000999
-     10      {'IL-15'           }    0.000999
-     11      {'VEGF'            }    0.000999
-     12      {'Leptin'          }    0.000999
-     13      {'Adipo/Lep'       }    0.002997
-     14      {'Adipo/Resis_rank'}    0.000999
-
-
-TvASCA =
-
-  14&times;3 table
-
-    Order           Label            PvalueF3
-    _____    ____________________    ________
-
       1      {'RARRESS'         }    0.000999
       2      {'LBP'             }    0.000999
       3      {'IFN-G'           }    0.000999
@@ -497,13 +427,30 @@ TvASCA =
       6      {'IL-6_rank'       }    0.000999
       7      {'IL-8'            }    0.000999
       8      {'Adiponectin_rank'}    0.000999
-      9      {'Resistin'        }    0.000999
+      9      {'Resistin_rank'   }    0.000999
      10      {'IL-15'           }    0.000999
      11      {'VEGF'            }    0.000999
      12      {'Leptin'          }    0.000999
      13      {'Adipo/Lep'       }    0.000999
      14      {'Adipo/Resis_rank'}    0.000999
-
+TvASCA =
+  14&times;3 table
+    Order           Label            PvalueF3
+    _____    ____________________    ________
+      1      {'RARRESS'         }    0.000999
+      2      {'LBP'             }    0.000999
+      3      {'IFN-G'           }    0.000999
+      4      {'IL-10'           }    0.000999
+      5      {'IL-23'           }    0.000999
+      6      {'IL-6_rank'       }    0.000999
+      7      {'IL-8'            }    0.000999
+      8      {'Adiponectin_rank'}    0.000999
+      9      {'Resistin_rank'   }    0.000999
+     10      {'IL-15'           }    0.000999
+     11      {'VEGF'            }    0.000999
+     12      {'Leptin'          }    0.000999
+     13      {'Adipo/Lep'       }    0.000999
+     14      {'Adipo/Resis_rank'}    0.000999
 </pre>
 <img vspace="5" hspace="5" src="vasca_biomarkers_03.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_04.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_05.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_06.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_07.png" alt=""> <img vspace="5" hspace="5" src="vasca_biomarkers_08.png" alt=""> <p class="footer">
 <br>
@@ -522,10 +469,12 @@ TvASCA =
 %
 % with A: Class (Control vs IUGR), B: Time (T3, Labour), C(A): Individual
 %
-% coded by: Jose Camacho (josecamacho@ugr.es)
-% last modification: 15/May/2025
+% Software preparation: Install MEDA-Toolbox v1.14
 %
-% Copyright (C) 2025  University of Granada, Granada
+% coded by: Jose Camacho (josecamacho@ugr.es)
+% last modification: 13/Jul/2026
+%
+% Copyright (C) 2026  University of Granada, Granada
 % 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -578,7 +527,7 @@ clear X_ASCAt F_ASCA var_final Xr Xn Xrn
        
 
 [T, parglmoMC] = parglmMC(X, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
 
 
 %% Compare with after rank tranform (if similar, raw data preferred) 
@@ -615,7 +564,7 @@ end
 %% Univariate inference: Q-value with selected features
 
 [T, parglmoMC] = parglmMC(X2, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 
 TQ = table(var_l2', parglmoMC.p(:,1), parglmoMC.p(:,2), parglmoMC.p(:,4),'VariableNames', {'Labels','QvalueLFRCtrl','QvalueTime','QvalueInt'})
@@ -640,13 +589,13 @@ axis tight
 %% Multivariate inference: ASCA 
 
 [T, parglmo] = parglm(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 
 %% Multivariate inference with variable selection: VASCA 
 
-[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1], 'Select', 'FirstPeakInverse');
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 TtQ = table(var_l2', parglmoVS.p(:,1), parglmoVS.p(:,2), parglmoVS.p(:,4),'VariableNames', {'Labels','VASCALFRCtrl','VASCATime','VASCAInt'})
 
@@ -668,7 +617,7 @@ axis tight
 
 %% Display results: VASCA
 
-vascao = vasca(parglmoVS, pvalue);
+vascao = vasca(parglmoVS, 'SignLev', pvalue);
 
 
 % LFR/Ctrl factor

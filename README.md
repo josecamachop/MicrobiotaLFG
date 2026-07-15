@@ -3,8 +3,8 @@
 Matlab scripts to reproduce the data analysis. Simply run publish_all.m
 
 Dependencies: 
-- MEDA Toolbox v1.8 at https://github.com/codaslab/MEDA-Toolbox
+- MEDA Toolbox v1.14 at https://github.com/codaslab/MEDA-Toolbox
 
 coded by: Jose Camacho (josecamacho@ugr.es)
 
-last modification: 15/May/2025
+last modification: 14/July/2026

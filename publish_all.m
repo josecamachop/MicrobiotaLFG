@@ -1,12 +1,12 @@
 %% Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025. 
 % Publication of scripts in html.
 %
-% Software preparation: Install MEDA-Toolbox v1.8
+% Software preparation: Install MEDA-Toolbox v1.14
 %
 % coded by: Jose Camacho (josecamacho@ugr.es)
-% last modification: 15/May/2025
+% last modification: 13/Jul/2026
 %
-% Copyright (C) 2025  University of Granada, Granada
+% Copyright (C) 2026  University of Granada, Granada
 % 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -31,3 +31,4 @@ publish('vasca_bloodhemo_step2.m');
 publish('vasca_biomarkers_step2.m');
 publish('vasca_bacteria_step2.m');
 publish('vasca_bac_bio_step2.m');
+publish('vasca_bac_bio_step2_wBMI.m');

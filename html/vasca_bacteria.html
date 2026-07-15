@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025.</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-05-15">
+<meta name="DC.date" content="2026-07-14">
 <meta name="DC.source" content="vasca_bacteria.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -83,8 +83,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <pre class="language-matlab">X = A + B + C(A) + AB + E
 </pre>
 <p>with A: Class (Control vs IUGR), B: Time (T3, Labour), C(A): Individual</p>
-<p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 15/May/2025</p>
-<p>Copyright (C) 2025 University of Granada, Granada</p>
+<p>Software preparation: Install MEDA-Toolbox v1.14</p>
+<p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 13/Jul/2026</p>
+<p>Copyright (C) 2026 University of Granada, Granada</p>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
@@ -152,32 +153,23 @@ X = [X Xr]; <span class="comment">% Careful: use [X/norm(Xn) Xr/norm(Xrn)] if no
 
 clear <span class="string">X_ASCAt</span> <span class="string">F_ASCA</span> <span class="string">var_final</span> <span class="string">Xr</span> <span class="string">Xn</span> <span class="string">Xrn</span>
 </pre>
-<pre class="codeoutput">
-pvalue =
-
+<pre class="codeoutput">pvalue =
     0.0500
-
 </pre>
 <h2 id="2">FDR (Q-value)</h2>
 <pre class="codeinput">[T, parglmoMC] = parglmMC(X, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Mtc'</span>, -1, <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
-T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int Class x Time'</span>}
+T.Source(1:4)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int Class x Time'</span>}
 </pre>
-<pre class="codeoutput">
-T =
-
-  7&times;7 table
-
+<pre class="codeoutput">T =
+  6&times;7 table
            Source           SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue 
     ____________________    ______    ___________    ___    ______    ______    __________
-
-    {'Mean'            }     28183       56.987        1     28183       NaN           NaN
-    {'F1: LFR/Ctrl'    }    203.03      0.60817        1    203.03    14.368         0.177
-    {'F2: Time'        }    1225.7       3.5435        1    1225.7    225.21    5.8823e-05
-    {'F3: Individual'  }    7245.5       23.916       85    85.241    6.0625    4.7619e-05
-    {'Int Class x Time'}    67.473      0.22755        1    67.473    12.238       0.66799
-    {'Residuals'       }    4094.5       13.385       85     48.17       NaN           NaN
-    {'Total'           }     41880          100      174    240.69       NaN           NaN
-
+    {'F1: LFR/Ctrl'    }    203.03       1.5905        1    203.03    14.368         0.184
+    {'F2: Time'        }    1225.7        9.602        1    1225.7    225.21    5.5555e-05
+    {'F3: Individual'  }    7245.5       56.759       85    85.241    6.0625    4.9999e-05
+    {'Int Class x Time'}    67.473      0.52856        1    67.473    12.238       0.59299
+    {'Residuals'       }    4094.5       32.075       85     48.17       NaN           NaN
+    {'Total'           }     12765       100.55      173    73.788       NaN           NaN
 </pre>
 <h2 id="3">Compare with after rank tranform (if similar, raw data preferred)</h2>
 <pre class="codeinput">half = length(var_l)/2;
@@ -212,7 +204,7 @@ var_l2 = var_l(noTr);
 </pre>
 <h2 id="4">Univariate inference: Q-value with selected features</h2>
 <pre class="codeinput">[T, parglmoMC] = parglmMC(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Mtc'</span>, -1, <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
-T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+T.Source(1:4)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
 
 
 TQ = table(var_l2', parglmoMC.p(:,1), parglmoMC.p(:,2), parglmoMC.p(:,4),<span class="string">'VariableNames'</span>, {<span class="string">'Labels'</span>,<span class="string">'QvalueLFRCtrl'</span>,<span class="string">'QvalueTime'</span>,<span class="string">'QvalueInt'</span>})
@@ -233,101 +225,84 @@ xlabel(<span class="string">'Variables in selected order'</span>,<span class="st
 title(<span class="string">'Manhattan Plot Qvalue'</span>)
 axis <span class="string">tight</span>
 </pre>
-<pre class="codeoutput">
-T =
-
-  7&times;7 table
-
+<pre class="codeoutput">T =
+  6&times;7 table
             Source             SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue 
     _______________________    ______    ___________    ___    ______    ______    __________
-
-    {'Mean'               }      5370       37.934        1      5370       NaN           NaN
-    {'F1: LFR/Ctrl'       }    93.164      0.85013        1    93.164    8.6807       0.50399
-    {'F2: Time'           }       577       4.9246        1       577    209.65    0.00011111
-    {'F3: Individual'     }    3650.3       35.849       85    42.945    5.7026    7.6921e-05
-    {'Int LFR/Ctrl x Time'}    31.763      0.33607        1    31.763    12.238       0.33599
-    {'Residuals'          }    2061.6       19.994       85    24.254       NaN           NaN
-    {'Total'              }     11879          100      174    68.271       NaN           NaN
-
-
+    {'F1: LFR/Ctrl'       }    93.164       1.4603        1    93.164    8.6807       0.50423
+    {'F2: Time'           }       577       9.0444        1       577    209.65    0.00011111
+    {'F3: Individual'     }    3650.3       57.218       85    42.945    5.7026    0.00011111
+    {'Int LFR/Ctrl x Time'}    31.763      0.49789        1    31.763    12.238       0.31999
+    {'Residuals'          }    2061.6       32.315       85    24.254       NaN           NaN
+    {'Total'              }    6379.6       100.54      173    36.876       NaN           NaN
 TQ =
-
   45&times;4 table
-
                     Labels                    QvalueLFRCtrl    QvalueTime    QvalueInt
     ______________________________________    _____________    __________    _________
-
-    {'f-Christensenellaceae;g--'         }       0.50399          0.83398     0.99762 
-    {'f-Clostridiaceae;g-Clostridium'    }       0.50399          0.55418     0.97385 
-    {'f-Enterobacteriaceae;g--'          }       0.65944          0.17805     0.97385 
-    {'f-Erysipelotrichaceae;g--'         }       0.50399          0.50971     0.97385 
-    {'f-Lachnospiraceae;g-Clostridium'   }       0.50399          0.55418     0.97385 
-    {'f-Lachnospiraceae;g-Ruminococcus'  }       0.50399          0.55678     0.97385 
-    {'f-Lachnospiraceae;g-[Ruminococcus]'}       0.50399          0.12335     0.99762 
-    {'f-Lachnospiraceae;g--'             }       0.53738          0.55418     0.97385 
-    {'f-Pasteurellaceae;g--'             }        0.7891          0.14505     0.97385 
-    {'f-Rikenellaceae;g--'               }        0.6329          0.83289     0.97385 
-    {'f-Ruminococcaceae;g-Ruminococcus'  }       0.50399          0.55678     0.97385 
-    {'f-Ruminococcaceae;g--'             }       0.50399         0.062561     0.97385 
-    {'f-[Barnesiellaceae];g--'           }       0.87245          0.66687     0.97385 
-    {'g-Actinobacillus'                  }       0.50399          0.55418     0.97385 
-    {'g-Akkermansia'                     }       0.50399       0.00011111     0.97385 
-    {'g-Alistipes'                       }       0.50399       0.00011111     0.97385 
-    {'g-Anaerostipes'                    }       0.56352       0.00011111     0.97385 
-    {'g-Bacteroides'                     }       0.50399       0.00011111     0.97385 
-    {'g-Barnesiella'                     }       0.70585         0.035615     0.97385 
-    {'g-Bifidobacterium'                 }        0.7891        0.0061665     0.97385 
-    {'g-Bilophila'                       }       0.53738       0.00029999     0.97385 
-    {'g-Blautia'                         }       0.51047       0.00011111     0.97385 
-    {'g-Collinsella'                     }       0.50399          0.45816     0.97385 
-    {'g-Coprococcus'                     }       0.50399         0.059713     0.33599 
-    {'g-Dialister'                       }       0.63387       0.00081816     0.97385 
-    {'g-Dorea'                           }        0.7891       0.00011111     0.99762 
-    {'g-Faecalibacterium'                }       0.50399       0.00011111     0.97385 
-    {'g-Gemmiger'                        }       0.50399       0.00011111     0.97385 
-    {'g-Kocuria'                         }       0.93978       0.00011111     0.97385 
-    {'g-Lachnospira'                     }        0.7891          0.50971     0.97385 
-    {'g-Odoribacter'                     }       0.50399           0.2549     0.97385 
-    {'g-Oscillospira'                    }        0.9388          0.53214     0.97385 
-    {'g-Parabacteroides'                 }       0.50399          0.19866     0.97385 
-    {'g-Paraprevotella'                  }       0.50399         0.061999     0.97385 
-    {'g-Phascolarctobacterium'           }       0.87245          0.17363     0.97385 
-    {'g-Prevotella'                      }       0.50399          0.55418     0.79248 
-    {'g-Pseudomonas'                     }       0.50399          0.83411     0.97385 
-    {'g-Roseburia'                       }       0.74815          0.64852     0.97385 
-    {'g-Staphylococcus'                  }       0.50399          0.82632     0.97385 
-    {'g-Streptococcus'                   }       0.50399          0.82632     0.99762 
-    {'g-Subdoligranulum'                 }       0.50399          0.83398     0.97385 
-    {'g-Sutterella'                      }       0.50399          0.79359     0.99762 
-    {'g-Veillonella'                     }       0.50399          0.82632     0.97385 
-    {'o-Clostridiales;f-;g--'            }       0.50399           0.6663     0.97385 
-    {'o-RF;f-;g--'                       }       0.50399          0.68436     0.97385 
-
+    {'f-Christensenellaceae;g--'         }       0.50423            0.834     0.99747 
+    {'f-Clostridiaceae;g-Clostridium'    }       0.50423          0.55238     0.97595 
+    {'f-Enterobacteriaceae;g--'          }       0.66179           0.1774     0.97595 
+    {'f-Erysipelotrichaceae;g--'         }       0.50423          0.51159     0.97595 
+    {'f-Lachnospiraceae;g-Clostridium'   }       0.50423          0.55238     0.97595 
+    {'f-Lachnospiraceae;g-Ruminococcus'  }       0.50423          0.55238     0.97595 
+    {'f-Lachnospiraceae;g-[Ruminococcus]'}       0.50423          0.12347     0.99747 
+    {'f-Lachnospiraceae;g--'             }       0.54312          0.55238     0.97595 
+    {'f-Pasteurellaceae;g--'             }       0.78903          0.14733     0.97595 
+    {'f-Rikenellaceae;g--'               }       0.63444          0.82965     0.97595 
+    {'f-Ruminococcaceae;g-Ruminococcus'  }       0.50423          0.55238     0.97595 
+    {'f-Ruminococcaceae;g--'             }       0.50423         0.062561     0.97595 
+    {'f-[Barnesiellaceae];g--'           }       0.87879          0.67201     0.97595 
+    {'g-Actinobacillus'                  }       0.50423          0.55238     0.97595 
+    {'g-Akkermansia'                     }       0.50423       0.00011111     0.97595 
+    {'g-Alistipes'                       }       0.50423       0.00011111     0.97595 
+    {'g-Anaerostipes'                    }        0.5613       0.00011111     0.97595 
+    {'g-Bacteroides'                     }       0.50423       0.00011111     0.97595 
+    {'g-Barnesiella'                     }       0.70951         0.031692     0.97595 
+    {'g-Bifidobacterium'                 }       0.78903        0.0070832     0.97595 
+    {'g-Bilophila'                       }       0.54312           0.0002     0.97595 
+    {'g-Blautia'                         }       0.50423       0.00011111     0.97595 
+    {'g-Collinsella'                     }       0.50423          0.46103     0.97595 
+    {'g-Coprococcus'                     }       0.50423          0.05557     0.31999 
+    {'g-Dialister'                       }       0.64452       0.00072726     0.97595 
+    {'g-Dorea'                           }       0.78903       0.00011111     0.99747 
+    {'g-Faecalibacterium'                }       0.50423       0.00011111     0.97595 
+    {'g-Gemmiger'                        }       0.50423       0.00011111     0.97595 
+    {'g-Kocuria'                         }       0.93933       0.00011111     0.97595 
+    {'g-Lachnospira'                     }       0.78903          0.51159     0.97595 
+    {'g-Odoribacter'                     }       0.50423          0.25386     0.97595 
+    {'g-Oscillospira'                    }       0.93909          0.53699     0.97595 
+    {'g-Parabacteroides'                 }       0.50423          0.19109     0.97595 
+    {'g-Paraprevotella'                  }       0.50423         0.060265     0.97595 
+    {'g-Phascolarctobacterium'           }       0.87879          0.17058     0.97595 
+    {'g-Prevotella'                      }       0.50423          0.55238     0.82048 
+    {'g-Pseudomonas'                     }       0.50423            0.834     0.97595 
+    {'g-Roseburia'                       }       0.74866          0.64507     0.97595 
+    {'g-Staphylococcus'                  }       0.50423          0.82669     0.97595 
+    {'g-Streptococcus'                   }       0.50423          0.82669     0.99747 
+    {'g-Subdoligranulum'                 }       0.50423            0.834     0.97595 
+    {'g-Sutterella'                      }       0.50423          0.79753     0.99747 
+    {'g-Veillonella'                     }       0.50423          0.82669     0.97595 
+    {'o-Clostridiales;f-;g--'            }       0.50423          0.67201     0.97595 
+    {'o-RF;f-;g--'                       }       0.50423          0.67877     0.97595 
 </pre>
 <img vspace="5" hspace="5" src="vasca_bacteria_01.png" alt=""> <h2 id="5">Multivariate inference: ASCA</h2>
 <pre class="codeinput">[T, parglmo] = parglm(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
-T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+T.Source(1:4)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
 </pre>
-<pre class="codeoutput">
-T =
-
-  7&times;7 table
-
+<pre class="codeoutput">T =
+  6&times;7 table
             Source             SumSq     PercSumSq    df     MeanSq      F        Pvalue 
     _______________________    ______    _________    ___    ______    ______    ________
-
-    {'Mean'               }      5370      45.205       1      5370       NaN         NaN
-    {'F1: LFR/Ctrl'       }    93.164     0.78426       1    93.164    2.1694     0.12388
-    {'F2: Time'           }       577      4.8572       1       577     23.79    0.000999
-    {'F3: Individual'     }    3650.3      30.728      85    42.945    1.7706    0.000999
-    {'Int LFR/Ctrl x Time'}    31.763     0.26739       1    31.763    1.3096     0.70629
-    {'Residuals'          }    2061.6      17.354      85    24.254       NaN         NaN
-    {'Total'              }     11879         100     174    68.271       NaN         NaN
-
+    {'F1: LFR/Ctrl'       }    93.164      1.4603       1    93.164    2.1694     0.12088
+    {'F2: Time'           }       577      9.0444       1       577     23.79    0.000999
+    {'F3: Individual'     }    3650.3      57.218      85    42.945    1.7706    0.000999
+    {'Int LFR/Ctrl x Time'}    31.763     0.49789       1    31.763    1.3096     0.71828
+    {'Residuals'          }    2061.6      32.315      85    24.254       NaN         NaN
+    {'Total'              }    6379.6      100.54     173    36.876       NaN         NaN
 </pre>
 <h2 id="6">Multivariate inference with variable selection: VASCA</h2>
-<pre class="codeinput">[T, parglmoVS] = parglmVS(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1]);
-T.Source(2:5)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
+<pre class="codeinput">[T, parglmoVS] = parglmVS(X2, F, <span class="string">'Model'</span>, [1 2], <span class="string">'Nested'</span>, [1 3], <span class="string">'Random'</span>, [0 0 1], <span class="string">'Select'</span>, <span class="string">'FirstPeakInverse'</span>);
+T.Source(1:4)={<span class="string">'F1: LFR/Ctrl'</span>,<span class="string">'F2: Time'</span>,<span class="string">'F3: Individual'</span>,<span class="string">'Int LFR/Ctrl x Time'</span>}
 
 TtQ = table(var_l2', parglmoVS.p(:,1), parglmoVS.p(:,2), parglmoVS.p(:,4),<span class="string">'VariableNames'</span>, {<span class="string">'Labels'</span>,<span class="string">'VASCALFRCtrl'</span>,<span class="string">'VASCATime'</span>,<span class="string">'VASCAInt'</span>})
 
@@ -346,79 +321,68 @@ xlabel(<span class="string">'Variables in selected order'</span>,<span class="st
 title(<span class="string">'Manhattan Plot vASCA'</span>)
 axis <span class="string">tight</span>
 </pre>
-<pre class="codeoutput">
-T =
-
-  7&times;7 table
-
+<pre class="codeoutput">T =
+  6&times;7 table
             Source             SumSq     AvPercSumSq    df     MeanSq     MaxF     minPvalue
     _______________________    ______    ___________    ___    ______    ______    _________
-
-    {'Mean'               }      5370       37.934        1      5370       NaN         NaN 
-    {'F1: LFR/Ctrl'       }    93.164      0.85013        1    93.164    8.6807      0.1029 
-    {'F2: Time'           }       577       4.9246        1       577    209.65    0.000999 
-    {'F3: Individual'     }    3650.3       35.849       85    42.945    5.7026    0.000999 
-    {'Int LFR/Ctrl x Time'}    31.763      0.33607        1    31.763    12.238      0.2018 
-    {'Residuals'          }    2061.6       19.994       85    24.254       NaN         NaN 
-    {'Total'              }     11879          100      174    68.271       NaN         NaN 
-
-
+    {'F1: LFR/Ctrl'       }    93.164       1.4533        1    93.164    8.6807     0.11688 
+    {'F2: Time'           }       577       9.0669        1       577    209.65    0.000999 
+    {'F3: Individual'     }    3650.3       57.195       85    42.945    5.7026    0.000999 
+    {'Int LFR/Ctrl x Time'}    31.763      0.49757        1    31.763    12.238     0.67133 
+    {'Residuals'          }    2061.6       32.324       85    24.254       NaN         NaN 
+    {'Total'              }    6379.6       100.54      173    36.876       NaN         NaN 
 TtQ =
-
   45&times;4 table
-
                     Labels                    VASCALFRCtrl    VASCATime    VASCAInt
     ______________________________________    ____________    _________    ________
-
-    {'f-Christensenellaceae;g--'         }      0.41159       0.000999     0.69031 
-    {'f-Clostridiaceae;g-Clostridium'    }      0.25175       0.000999     0.34366 
-    {'f-Enterobacteriaceae;g--'          }      0.11788       0.000999     0.69131 
-    {'f-Erysipelotrichaceae;g--'         }      0.30769       0.000999      0.6993 
-    {'f-Lachnospiraceae;g-Clostridium'   }      0.24276       0.000999     0.33766 
-    {'f-Lachnospiraceae;g-Ruminococcus'  }      0.52947       0.000999      0.7023 
-    {'f-Lachnospiraceae;g-[Ruminococcus]'}      0.23377       0.000999      0.7043 
-    {'f-Lachnospiraceae;g--'             }      0.14186       0.000999      0.6953 
-    {'f-Pasteurellaceae;g--'             }      0.10989       0.000999     0.26174 
-    {'f-Rikenellaceae;g--'               }      0.12388       0.000999      0.6983 
-    {'f-Ruminococcaceae;g-Ruminococcus'  }      0.48551       0.000999      0.7043 
-    {'f-Ruminococcaceae;g--'             }      0.58841       0.000999     0.68731 
-    {'f-[Barnesiellaceae];g--'           }      0.10589       0.000999     0.67532 
-    {'g-Actinobacillus'                  }      0.21279       0.000999     0.64535 
-    {'g-Akkermansia'                     }      0.41758       0.000999     0.68032 
-    {'g-Alistipes'                       }      0.33766       0.000999      0.6973 
-    {'g-Anaerostipes'                    }      0.12188       0.000999      0.6973 
-    {'g-Bacteroides'                     }      0.18781       0.000999     0.68931 
-    {'g-Barnesiella'                     }      0.11289       0.000999     0.51449 
-    {'g-Bifidobacterium'                 }       0.1029       0.000999     0.66034 
-    {'g-Bilophila'                       }      0.14585       0.000999     0.57143 
-    {'g-Blautia'                         }      0.15884       0.000999      0.7043 
-    {'g-Collinsella'                     }      0.25574       0.000999     0.35165 
-    {'g-Coprococcus'                     }      0.52847       0.000999     0.23177 
-    {'g-Dialister'                       }      0.11888       0.000999     0.70829 
-    {'g-Dorea'                           }      0.10989       0.000999      0.6953 
-    {'g-Faecalibacterium'                }      0.30569       0.000999      0.6963 
-    {'g-Gemmiger'                        }      0.37662       0.000999     0.41059 
-    {'g-Kocuria'                         }      0.11089       0.000999     0.67832 
-    {'g-Lachnospira'                     }      0.10589       0.000999     0.68631 
-    {'g-Odoribacter'                     }      0.27672       0.000999      0.7043 
-    {'g-Oscillospira'                    }      0.12088       0.000999      0.6953 
-    {'g-Parabacteroides'                 }      0.54446       0.000999     0.70529 
-    {'g-Paraprevotella'                  }      0.18382       0.000999     0.67433 
-    {'g-Phascolarctobacterium'           }      0.10989       0.000999     0.67333 
-    {'g-Prevotella'                      }      0.26973       0.000999      0.2018 
-    {'g-Pseudomonas'                     }      0.55345       0.000999     0.69031 
-    {'g-Roseburia'                       }      0.11189       0.000999     0.67932 
-    {'g-Staphylococcus'                  }       0.3027       0.000999      0.7023 
-    {'g-Streptococcus'                   }      0.21778       0.000999      0.7013 
-    {'g-Subdoligranulum'                 }      0.27073       0.000999     0.62038 
-    {'g-Sutterella'                      }       0.5954       0.000999      0.7003 
-    {'g-Veillonella'                     }      0.29371       0.000999     0.71429 
-    {'o-Clostridiales;f-;g--'            }      0.30669       0.000999     0.71528 
-    {'o-RF;f-;g--'                       }      0.17483       0.000999     0.43457 
-
+    {'f-Christensenellaceae;g--'         }      0.11688       0.000999     0.67133 
+    {'f-Clostridiaceae;g-Clostridium'    }      0.11688       0.000999     0.67133 
+    {'f-Enterobacteriaceae;g--'          }      0.11688       0.000999     0.67133 
+    {'f-Erysipelotrichaceae;g--'         }      0.11688       0.000999     0.67133 
+    {'f-Lachnospiraceae;g-Clostridium'   }      0.11688       0.000999     0.67133 
+    {'f-Lachnospiraceae;g-Ruminococcus'  }      0.11688       0.000999     0.67133 
+    {'f-Lachnospiraceae;g-[Ruminococcus]'}      0.11688       0.000999     0.67133 
+    {'f-Lachnospiraceae;g--'             }      0.11688       0.000999     0.67133 
+    {'f-Pasteurellaceae;g--'             }      0.11688       0.000999     0.67133 
+    {'f-Rikenellaceae;g--'               }      0.11688       0.000999     0.67133 
+    {'f-Ruminococcaceae;g-Ruminococcus'  }      0.11688       0.000999     0.67133 
+    {'f-Ruminococcaceae;g--'             }      0.11688       0.000999     0.67133 
+    {'f-[Barnesiellaceae];g--'           }      0.11688       0.000999     0.67133 
+    {'g-Actinobacillus'                  }      0.11688       0.000999     0.67133 
+    {'g-Akkermansia'                     }      0.11688       0.000999     0.67133 
+    {'g-Alistipes'                       }      0.11688       0.000999     0.67133 
+    {'g-Anaerostipes'                    }      0.11688       0.000999     0.67133 
+    {'g-Bacteroides'                     }      0.11688       0.000999     0.67133 
+    {'g-Barnesiella'                     }      0.11688       0.000999     0.67133 
+    {'g-Bifidobacterium'                 }      0.11688       0.000999     0.67133 
+    {'g-Bilophila'                       }      0.11688       0.000999     0.67133 
+    {'g-Blautia'                         }      0.11688       0.000999     0.67133 
+    {'g-Collinsella'                     }      0.11688       0.000999     0.67133 
+    {'g-Coprococcus'                     }      0.11688       0.000999     0.67133 
+    {'g-Dialister'                       }      0.11688       0.000999     0.67133 
+    {'g-Dorea'                           }      0.11688       0.000999     0.67133 
+    {'g-Faecalibacterium'                }      0.11688       0.000999     0.67133 
+    {'g-Gemmiger'                        }      0.11688       0.000999     0.67133 
+    {'g-Kocuria'                         }      0.11688       0.000999     0.67133 
+    {'g-Lachnospira'                     }      0.11688       0.000999     0.67133 
+    {'g-Odoribacter'                     }      0.11688       0.000999     0.67133 
+    {'g-Oscillospira'                    }      0.11688       0.000999     0.67133 
+    {'g-Parabacteroides'                 }      0.11688       0.000999     0.67133 
+    {'g-Paraprevotella'                  }      0.11688       0.000999     0.67133 
+    {'g-Phascolarctobacterium'           }      0.11688       0.000999     0.67133 
+    {'g-Prevotella'                      }      0.11688       0.000999     0.67133 
+    {'g-Pseudomonas'                     }      0.11688       0.000999     0.67133 
+    {'g-Roseburia'                       }      0.11688       0.000999     0.67133 
+    {'g-Staphylococcus'                  }      0.11688       0.000999     0.67133 
+    {'g-Streptococcus'                   }      0.11688       0.000999     0.67133 
+    {'g-Subdoligranulum'                 }      0.11688       0.000999     0.67133 
+    {'g-Sutterella'                      }      0.11688       0.000999     0.67133 
+    {'g-Veillonella'                     }      0.11688       0.000999     0.67133 
+    {'o-Clostridiales;f-;g--'            }      0.11688       0.000999     0.67133 
+    {'o-RF;f-;g--'                       }      0.11688       0.000999     0.67133 
 </pre>
 <img vspace="5" hspace="5" src="vasca_bacteria_02.png" alt=""> <h2 id="7">Display results: VASCA</h2>
-<pre class="codeinput">vascao = vasca(parglmoVS, pvalue);
+<pre class="codeinput">vascao = vasca(parglmoVS, <span class="string">'SignLev'</span>, pvalue);
 
 
 <span class="comment">% LFR/Ctrl factor</span>
@@ -498,14 +462,10 @@ i=1;
 
 <span class="keyword">end</span>
 </pre>
-<pre class="codeoutput">
-TvASCA =
-
+<pre class="codeoutput">TvASCA =
   45&times;3 table
-
     Order                    Label                     PvalueF2
     _____    ______________________________________    ________
-
       1      {'f-Christensenellaceae;g--'         }    0.000999
       2      {'f-Clostridiaceae;g-Clostridium'    }    0.000999
       3      {'f-Enterobacteriaceae;g--'          }    0.000999
@@ -551,15 +511,10 @@ TvASCA =
      43      {'g-Veillonella'                     }    0.000999
      44      {'o-Clostridiales;f-;g--'            }    0.000999
      45      {'o-RF;f-;g--'                       }    0.000999
-
-
 TvASCA =
-
   45&times;3 table
-
     Order                    Label                     PvalueF3
     _____    ______________________________________    ________
-
       1      {'f-Christensenellaceae;g--'         }    0.000999
       2      {'f-Clostridiaceae;g-Clostridium'    }    0.000999
       3      {'f-Enterobacteriaceae;g--'          }    0.000999
@@ -605,7 +560,6 @@ TvASCA =
      43      {'g-Veillonella'                     }    0.000999
      44      {'o-Clostridiales;f-;g--'            }    0.000999
      45      {'o-RF;f-;g--'                       }    0.000999
-
 </pre>
 <img vspace="5" hspace="5" src="vasca_bacteria_03.png" alt=""> <img vspace="5" hspace="5" src="vasca_bacteria_04.png" alt=""> <img vspace="5" hspace="5" src="vasca_bacteria_05.png" alt=""> <img vspace="5" hspace="5" src="vasca_bacteria_06.png" alt=""> <p class="footer">
 <br>
@@ -624,10 +578,12 @@ TvASCA =
 %
 % with A: Class (Control vs IUGR), B: Time (T3, Labour), C(A): Individual
 %
-% coded by: Jose Camacho (josecamacho@ugr.es)
-% last modification: 15/May/2025
+% Software preparation: Install MEDA-Toolbox v1.14
 %
-% Copyright (C) 2025  University of Granada, Granada
+% coded by: Jose Camacho (josecamacho@ugr.es)
+% last modification: 13/Jul/2026
+%
+% Copyright (C) 2026  University of Granada, Granada
 % 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -685,7 +641,7 @@ clear X_ASCAt F_ASCA var_final Xr Xn Xrn
        
 
 [T, parglmoMC] = parglmMC(X, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
 
 
 %% Compare with after rank tranform (if similar, raw data preferred) 
@@ -722,7 +678,7 @@ end
 %% Univariate inference: Q-value with selected features
 
 [T, parglmoMC] = parglmMC(X2, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 
 TQ = table(var_l2', parglmoMC.p(:,1), parglmoMC.p(:,2), parglmoMC.p(:,4),'VariableNames', {'Labels','QvalueLFRCtrl','QvalueTime','QvalueInt'})
@@ -747,13 +703,13 @@ axis tight
 %% Multivariate inference: ASCA 
 
 [T, parglmo] = parglm(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 
 %% Multivariate inference with variable selection: VASCA 
 
-[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1], 'Select', 'FirstPeakInverse');
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 TtQ = table(var_l2', parglmoVS.p(:,1), parglmoVS.p(:,2), parglmoVS.p(:,4),'VariableNames', {'Labels','VASCALFRCtrl','VASCATime','VASCAInt'})
 
@@ -775,7 +731,7 @@ axis tight
 
 %% Display results: VASCA
 
-vascao = vasca(parglmoVS, pvalue);
+vascao = vasca(parglmoVS, 'SignLev', pvalue);
 
 
 % LFR/Ctrl factor

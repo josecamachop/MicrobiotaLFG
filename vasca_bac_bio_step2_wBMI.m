@@ -1,18 +1,18 @@
 %% Ferrer et al. INTESTINAL MICROBIOTA INFLAMMATORY PROFILE IN LATE-FETAL GROWTH RESTRICTION WOMEN, 2025. 
-% Script to analyze bacterial data & Inflammatory biomarkers
+% Script to analyze bacterial data & Inflammatory biomarkers & BMI  (after outliers removal)
 %
 % We consider the following model: 
 %
 %   X = A + B + C(A) + AB + E
 %
-% with A: Class (Control vs IUGR), B: Time (T1, T2), C(A): Individual
+% with A: Class (Control vs IUGR), B: Time (T3, Labour), C(A): Individual
 %
-% Software preparation: Install MEDA-Toolbox v1.8
+% Software preparation: Install MEDA-Toolbox v1.14
 %
 % coded by: Jose Camacho (josecamacho@ugr.es)
-% last modification: 15/May/2025
+% last modification: 14/Jul/2026
 %
-% Copyright (C) 2025  University of Granada, Granada
+% Copyright (C) 2026  University of Granada, Granada
 % 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -33,7 +33,8 @@ clear
 close all
 clc
 
-rng(0),
+% comment the line below to observe full randomness
+rng(0); % we fix the random seed for repetitivity, but permutation testing is stochastic so a little variability is expected in the p-values and associated figures
 
 pvalue = 0.05
 
@@ -46,12 +47,10 @@ for i=1:length(var_final), var_l{i} = char(var_final(i)); end
 
 ind = find(F(:,2)==3);% do not consider newborns
 X(ind,:) = [];
-Xraw(ind,:) = [];
 F(ind,:) = [];
 
 ind = find(F(:,2)==4);% do not consider newborns
 X(ind,:) = [];
-Xraw(ind,:) = [];
 F(ind,:) = [];
 
 load biomark_vasca.mat
@@ -63,7 +62,6 @@ var_l2 = var_final;
 
 ind = find(F2(:,2)==3);% do not consider newborns
 X2(ind,:) = [];
-Xraw2(ind,:) = [];
 F2(ind,:) = [];
 
 % Join
@@ -71,7 +69,6 @@ for i=length(F2):-1:1
     ind = find(ismember(F,F2(i,:),'rows'));
     if isempty(ind)
         X2(i,:) = [];
-        Xraw2(i,:) = [];
         F2(i,:) = [];
     end
 end
@@ -80,15 +77,30 @@ for i=length(F):-1:1
     ind = find(ismember(F2,F(i,:),'rows'));
     if isempty(ind)
         X(i,:) = [];
-        Xraw(i,:) = [];
         F(i,:) = [];
     end
 end
 
-X = [X X2];
-Xraw = [Xraw Xraw2];
-var_l = {var_l{:} var_l2{:}};
+load blood_hemo_vasca.mat
 
+X3 = X_ASCAt(:,8);
+var_l3 = var_final(8);
+F3 = F_ASCA;
+
+ind = find(F3(:,2)==3);% do not consider newborns
+X3(ind,:) = [];
+F3(ind,:) = [];
+
+X = [X X2 X3];
+var_l = {var_l{:} var_l2{:} var_l3{:}};
+
+indout = find(F(:,3)==3); % Deleting outlier found in first step
+X(indout,:) = [];
+F(indout,:) = [];
+
+indout = find(F(:,3)==38); % Deleting outlier found in first step
+X(indout,:) = [];
+F(indout,:) = [];
 
 Xr =  rankTransform(X);
 Xn = X; Xn(find(isnan(X)))=0;
@@ -102,7 +114,7 @@ clear X_ASCAt F_ASCA var_final Xr Xn Xrn
 %% FDR (Q-value)
 
 [T, parglmoMC] = parglmMC(X, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int Class x Time'}
        
 
 %% Compare with after rank tranform (if similar, raw data preferred) 
@@ -139,7 +151,7 @@ end
 %% Univariate inference: Q-value with selected features
 
 [T, parglmoMC] = parglmMC(X2, F, 'Model', [1 2], 'Mtc', -1, 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 
 TQ = table(var_l2', parglmoMC.p(:,1), parglmoMC.p(:,2), parglmoMC.p(:,4),'VariableNames', {'Labels','QvalueLFRCtrl','QvalueTime','QvalueInt'})
@@ -168,12 +180,12 @@ saveas(gcf,'Figures/FigManhattan_Qv_bb.png','png');
 %% Multivariate inference: ASCA 
 
 [T, parglmo] = parglm(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 %% Multivariate inference with variable selection: VASCA 
 
-[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1]);
-T.Source(2:5)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
+[T, parglmoVS] = parglmVS(X2, F, 'Model', [1 2], 'Nested', [1 3], 'Random', [0 0 1], 'Select', 'FirstPeakInverse');
+T.Source(1:4)={'F1: LFR/Ctrl','F2: Time','F3: Individual','Int LFR/Ctrl x Time'}
 
 TtQ = table(var_l2', parglmoVS.p(:,1), parglmoVS.p(:,2), parglmoVS.p(:,4),'VariableNames', {'Labels','VASCALFRCtrl','VASCATime','VASCAInt'})
 
@@ -199,7 +211,7 @@ saveas(gcf,'Figures/FigManhattan_bb.png','png');
 
 %% Display results: VASCA
 
-vascao = vasca(parglmoVS, pvalue);
+vascao = vasca(parglmoVS, 'SignLev', pvalue);
 
 
 % LFR/Ctrl factor
@@ -209,6 +221,9 @@ if isfield(vascao.factors{i},'scores')
 
     TvASCA = table((1:length(vascao.factors{i}.ind))',var_l2(sort(vascao.factors{i}.ind))', vascao.p(sort(vascao.factors{i}.ind),i),'VariableNames', {'Order','Label',sprintf('PvalueF%i',i)})
     
+    vascao.factors{i}.scoresV = - vascao.factors{i}.scoresV;
+    vascao.factors{i}.loads = - vascao.factors{i}.loads;
+
     scores(vascao.factors{i}, 'Title', 'Case/control', 'ObsClass', vascao.design(:,i));
     legend('Control', 'LFG');
 
@@ -218,23 +233,6 @@ if isfield(vascao.factors{i},'scores')
         loadings(vascao.factors{i}, 'Title','Case/control','VarsLabel', var_l2(sort(vascao.factors{i}.ind)));
     end
 
-    % label = cell(length(F(:,i)),1);
-    % for j=find(F(:,i)==1)', label{j} = 'Ctrl'; end
-    % for j=find(F(:,i)==2)', label{j} = 'LFG'; end
-    % for j = vascao.factors{i}.ind
-    %     figure, h = boxplot(Xraw(:,j),label);
-    %     ylabel(var_l{j},'FontSize',18,'Interpreter','None')
-    %     a=get(gcf,'Children');
-    %     set(a,'Fontsize',14)
-    %     title('Raw data')
-    % 
-    %     x = (vascao.factors{i}.matrix(:,j) + vascao.residuals(:,j) + vascao.inter(:,j)) * vascao.scale(j);
-    %     figure, h = boxplot(x,label);
-    %     ylabel(var_l{j},'FontSize',18,'Interpreter','None')
-    %     a=get(gcf,'Children');
-    %     set(a,'Fontsize',14)
-    %     title('VASCA plot')
-    % end
 end
 
 
@@ -247,9 +245,9 @@ if isfield(vascao.factors{i},'scores')
     
     vascao.factors{i}.loads = -vascao.factors{i}.loads;
     vascao.factors{i}.scoresV = -vascao.factors{i}.scoresV;
-
+    
     scores(vascao.factors{i}, 'Title', 'Time', 'ObsClass',vascao.design(:,i));
-    legend('T1', 'T2');
+    legend('T3', 'Labour');
 
     if length(vascao.factors{i}.ind)==1
         ylabel(var_l2(vascao.factors{i}.ind))
@@ -257,28 +255,6 @@ if isfield(vascao.factors{i},'scores')
         loadings(vascao.factors{i}, 'Title','Time', 'VarsLabel', var_l2(sort(vascao.factors{i}.ind))); 
     end
     
-    % label = cell(length(F(:,i)),1);
-    % for j=find(F(:,i)==1)', label{j} = 'T1'; end
-    % for j=find(F(:,i)==2)', label{j} = 'T2'; end
-    % for j=find(F(:,i)==3)', label{j} = 'T3'; end
-    % for j = vascao.factors{i}.ind
-    %     figure, h = boxplot(Xraw(:,j),label);
-    %     ylabel(var_l2{j},'FontSize',18,'Interpreter','None')
-    %     a=get(gcf,'Children');
-    %     set(a,'Fontsize',14)
-    %     title('Raw data')
-    % 
-    %     x = (vascao.factors{i}.matrix(:,j) + vascao.residuals(:,j) + vascao.inter(:,j)) * vascao.scale(j);
-    %     figure, h = boxplot(x,label);
-    %     ylabel(var_l2{j},'FontSize',18,'Interpreter','None')
-    %     a=get(gcf,'Children');
-    %     set(a,'Fontsize',14)
-    %     title('VASCA plot')    
-    % 
-    %     saveas(gcf,sprintf('Figures/1b_%i',j));
-    %     saveas(gcf,sprintf('Figures/1b_%i.eps',j),'epsc');
-    %     saveas(gcf,sprintf('Figures/1b_%i.png',j),'png');
-    % end
 end
 
 
@@ -295,32 +271,6 @@ if isfield(vascao.factors{i},'scores')
         title(sprintf('Factor %d',i));
         legend('Control', 'LFG');
 
-        % saveas(gcf,'Figures/1a_left');
-        % saveas(gcf,'Figures/1a_left.jpg','jpg');
-        % saveas(gcf,'Figures/1a_left.png','png');
-
-        % label = cell(length(F(:,i)),1);
-        % for j=find(F(:,i)==1)', label{j} = 'T1'; end
-        % for j=find(F(:,i)==2)', label{j} = 'T2'; end
-        % for j=find(F(:,i)==3)', label{j} = 'T3'; end
-        % for j = vascao.factors{i}.ind
-        %     figure, h = boxplot(Xraw(:,j),label);
-        %     ylabel(var_l2{j},'FontSize',18,'Interpreter','None')
-        %     a=get(gcf,'Children');
-        %     set(a,'Fontsize',14)
-        %     title('Raw data')
-        %
-        %     x = (vascao.factors{i}.matrix(:,j) + vascao.residuals(:,j) + vascao.inter(:,j)) * vascao.scale(j);
-        %     figure, h = boxplot(x,label);
-        %     ylabel(var_l2{j},'FontSize',18,'Interpreter','None')
-        %     a=get(gcf,'Children');
-        %     set(a,'Fontsize',14)
-        %     title('VASCA plot')
-        %
-        %     saveas(gcf,sprintf('Figures/1b_%i',j));
-        %     saveas(gcf,sprintf('Figures/1b_%i.eps',j),'epsc');
-        %     saveas(gcf,sprintf('Figures/1b_%i.png',j),'png');
-        % end
     end
 end
 
@@ -333,7 +283,7 @@ if isfield(vascao.interactions{i},'scores')
     TvASCA = table((1:length(vascao.interactions{i}.ind))',var_l2(sort(vascao.interactions{i}.ind))', vascao.p(sort(vascao.interactions{i}.ind),3+i),'VariableNames', {'Order','Label',sprintf('PvalueI%i',i)})
     
     scores(vascao.interactions{i}, 'Title', 'Int LFR/Ctrl x Time', 'ObsClass', vascao.design(:,1)*10+vascao.design(:,2));
-    legend('Ctrl+T1','Case+T1','Ctrl+T2','Case+T2');
+    legend('Ctrl+T3','Case+T3','Ctrl+Labour','Case+Labour');
 
     if length(vascao.interactions{i}.ind)==1
         ylabel(var_l2(vascao.interactions{i}.ind))
@@ -341,23 +291,15 @@ if isfield(vascao.interactions{i},'scores')
         loadings(model,'Title', 'Int LFR/Ctrl x Time', 'VarsLabel', var_l2(sort(vascao.interactions{i}.ind))); 
     end
     
-    % label = cell(length(F(:,i)),1);
-    % for j=find(F(:,1)==1 & F(:,2)==1)', label{j} = 'Ctrl T1'; end
-    % for j=find(F(:,1)==1 & F(:,2)==2)', label{j} = 'Ctrl T2'; end
-    % for j=find(F(:,1)==2 & F(:,2)==1)', label{j} = 'Case T1'; end
-    % for j=find(F(:,1)==2 & F(:,2)==2)', label{j} = 'Case T2'; end
-    % for j = vascao.interactions{i}.ind'
-    %     figure, h = boxplot(Xraw(:,j),label);
-    %     ylabel(var_l2{j},'FontSize',18,'Interpreter','None')
-    %     a=get(gcf,'Children');
-    %     set(a,'Fontsize',14)
-    %     title('Raw data')
-    % 
-    %     x = (vascao.interactions{i}.matrix(:,j) + vascao.factors{1}.matrix(:,j) + vascao.factors{2}.matrix(:,j) + vascao.residuals(:,j) + vascao.inter(:,j)) * vascao.scale(j);
-    %     figure, h = boxplot(x,label);
-    %     ylabel(var_l2{j},'FontSize',18,'Interpreter','None')
-    %     a=get(gcf,'Children');
-    %     set(a,'Fontsize',14)
-    %     title('VASCA plot')
-    % end
 end
+
+%% Selection of loadings
+
+indS = find(abs(vascao.factors{1}.loads)>0.2);
+ind2 = sort(vascao.factors{i}.ind);
+plotVec(vascao.factors{1}.loads(indS),'EleLabel', var_l2(ind2(indS)));
+title('Case/control: Highest loadings')
+
+saveas(gcf,'Figures/FigHL_bb');
+saveas(gcf,'Figures/FigHL_bb.jpg','jpg');
+saveas(gcf,'Figures/FigHL_bb.png','png');
